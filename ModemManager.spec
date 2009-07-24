@@ -3,7 +3,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.2
-Release: 1.%{snapshot}%{?dist}
+Release: 2.%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2-2.20090707
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Tue Jul 7 2009 Dan Williams <dcbw@redhat.com> - 0.2-1.20090707
 - Fix source repo location
 - Fix directory ownership
