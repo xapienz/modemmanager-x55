@@ -3,7 +3,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.2
-Release: 2.%{snapshot}%{?dist}
+Release: 3.%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -20,12 +20,16 @@ BuildRequires: glib2-devel
 BuildRequires: dbus-glib-devel >= 0.75
 BuildRequires: libgudev-devel >= 143
 
+# fix a typo in udev rules
+Patch0: udev-rule-typo.patch
+
 %description
 The ModemManager service provides a consistent API to operate many different
 modems, including mobile broadband (3G) devices.
 
 %prep
 %setup -q
+%patch0 -p1 -b .udev-rule-typo
 
 %build
 %configure \
@@ -62,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Fri Jul 31 2009 Matthias Clasen <mclasen@redhat.com>
+- Fix a typo in one of the udev rules files
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2-2.20090707
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
