@@ -1,4 +1,4 @@
-%define snapshot 20090707
+%define snapshot 20090826
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
@@ -20,16 +20,12 @@ BuildRequires: glib2-devel
 BuildRequires: dbus-glib-devel >= 0.75
 BuildRequires: libgudev-devel >= 143
 
-# fix a typo in udev rules
-Patch0: udev-rule-typo.patch
-
 %description
 The ModemManager service provides a consistent API to operate many different
 modems, including mobile broadband (3G) devices.
 
 %prep
 %setup -q
-%patch0 -p1 -b .udev-rule-typo
 
 %build
 %configure \
@@ -66,6 +62,10 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Wed Aug 26 2009 Dan Williams <dcbw@redhat.com> - 0.2-3.20090826
+- Fixes for Motorola and Ericsson devices
+- Fixes for CDMA "serving-system" command parsing
+
 * Fri Jul 31 2009 Matthias Clasen <mclasen@redhat.com>
 - Fix a typo in one of the udev rules files
 
