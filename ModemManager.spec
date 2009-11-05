@@ -1,9 +1,9 @@
-%define snapshot 20090826
+%define snapshot 20091105
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.2
-Release: 3.%{snapshot}%{?dist}
+Release: 4.%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -62,6 +62,16 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Thu Nov  5 2009 Dan Williams <dcbw@redhat.com> - 0.2-4.20091105
+- Update to latest git
+- core: fix pppd 2.4.5 errors about 'baudrate 0'
+- cdma: wait for network registration before trying to connect
+- gsm: add cell access technology reporting
+- gsm: allow longer-running network scans
+- mbm: various fixes for Ericsson F3507g/F3607gw/Dell 5530
+- nokia: don't power down phones on disconnect
+- hso: fix disconnection/disable
+
 * Wed Aug 26 2009 Dan Williams <dcbw@redhat.com> - 0.2-3.20090826
 - Fixes for Motorola and Ericsson devices
 - Fixes for CDMA "serving-system" command parsing
