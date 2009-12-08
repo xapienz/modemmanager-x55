@@ -1,16 +1,16 @@
-%define snapshot 20091105
+%define snapshot %{nil}
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.2
-Release: 4.%{snapshot}%{?dist}
+Version: 0.2.997
+Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
 #    ./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var
 #    make distcheck
 #
-Source: %{name}-%{version}-%{snapshot}.tar.bz2
+Source: %{name}-%{version}%{snapshot}.tar.bz2
 License: GPLv2+
 Group: System Environment/Base
 
@@ -62,6 +62,15 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Mon Dec  7 2009 Dan Williams <dcbw@redhat.com> - 0.2.997-1
+- core: fix reconnect after manual disconnect (rh #541314)
+- core: fix various segfaults during registration
+- core: fix probing of various modems on big-endian architectures (ie PPC)
+- core: implement modem states to avoid duplicate operations
+- hso: fix authentication for Icera-based devices like iCON 505
+- zte: use correct port for new devices
+- nozomi: fix detection
+
 * Thu Nov  5 2009 Dan Williams <dcbw@redhat.com> - 0.2-4.20091105
 - Update to latest git
 - core: fix pppd 2.4.5 errors about 'baudrate 0'
