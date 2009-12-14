@@ -62,7 +62,7 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
-* Mon Dec 14 2009 Dan Williams <dcbw@redhat.com> - 0.2.997-1.git20091214
+* Mon Dec 14 2009 Dan Williams <dcbw@redhat.com> - 0.2.997-2.git20091214
 - cdma: fix signal strength reporting on some devices
 - cdma: better registration state detection when dialing (ex Sierra 5275)
 
