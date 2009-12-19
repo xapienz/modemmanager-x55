@@ -1,9 +1,9 @@
-%define snapshot .git20091216
+%define snapshot .git20091218
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.2.997
-Release: 3%{snapshot}%{?dist}
+Release: 4%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Fri Dec 18 2009 Dan Williams <dcbw@redhat.com> - 0.2.997-4.git20091218
+- sierra: fix CDMA registration detection in some cases
+
 * Wed Dec 16 2009 Dan Williams <dcbw@redhat.com> - 0.2.997-3.git20091216
 - sierra: ensure CDMA device is powered up when trying to use it
 - cdma: better signal quality parsing (fixes ex Huawei EC168C)
