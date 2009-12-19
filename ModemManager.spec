@@ -63,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Fri Dec 18 2009 Dan Williams <dcbw@redhat.com> - 0.2.997-4.git20091218
-- sierra: fix CDMA registration detection in some cases
+- sierra: fix CDMA registration detection in some cases (rh #547513)
 
 * Wed Dec 16 2009 Dan Williams <dcbw@redhat.com> - 0.2.997-3.git20091216
 - sierra: ensure CDMA device is powered up when trying to use it
