@@ -1,4 +1,5 @@
 %define snapshot .git20100101
+%define ppp_version 2.4.4
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
@@ -19,7 +20,8 @@ BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires: glib2-devel
 BuildRequires: dbus-glib-devel >= 0.75
 BuildRequires: libgudev-devel >= 143
-BuildRequires: ppp-devel >= 2.4.4
+BuildRequires: ppp >= %{ppp_version}
+BuildRequires: ppp-devel >= %{ppp_version}
 
 %description
 The ModemManager service provides a consistent API to operate many different
