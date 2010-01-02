@@ -1,9 +1,9 @@
-%define snapshot .git20091218
+%define snapshot .git20100101
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.2.997
-Release: 4%{snapshot}%{?dist}
+Release: 5%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -19,6 +19,7 @@ BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires: glib2-devel
 BuildRequires: dbus-glib-devel >= 0.75
 BuildRequires: libgudev-devel >= 143
+BuildRequires: ppp-devel >= 2.4.4
 
 %description
 The ModemManager service provides a consistent API to operate many different
@@ -28,10 +29,13 @@ modems, including mobile broadband (3G) devices.
 %setup -q
 
 %build
+
+pppddir=`ls -1d %{_libdir}/pppd/2*`
 %configure \
 	--enable-more-warnings=yes \
 	--with-udev-base-dir=/lib/udev \
-	--disable-static
+	--disable-static \
+	--with-pppd-plugin-dir=$pppddir
 
 make %{?_smp_mflags}
 
@@ -43,6 +47,8 @@ rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -62,6 +68,10 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Fri Jan  1 2010 Dan Williams <dcbw@redhat.com> - 0.2.997-5.git20100101
+- core: fix apparent hangs by limiting retried serial writes
+- gsm: ensure modem state is reset when disabled
+
 * Fri Dec 18 2009 Dan Williams <dcbw@redhat.com> - 0.2.997-4.git20091218
 - sierra: fix CDMA registration detection in some cases (rh #547513)
 
