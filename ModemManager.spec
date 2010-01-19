@@ -24,6 +24,8 @@ BuildRequires: dbus-glib-devel >= 0.82
 BuildRequires: libgudev-devel >= 143
 BuildRequires: ppp = %{ppp_version}
 BuildRequires: ppp-devel = %{ppp_version}
+# for xsltproc
+BuildRequires: libxslt
 
 %description
 The ModemManager service provides a consistent API to operate many different
