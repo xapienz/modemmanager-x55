@@ -1,10 +1,10 @@
-%define snapshot .git20100101
-%define ppp_version 2.4.4
+%define snapshot .git20100119
+%define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.2.997
-Release: 5%{snapshot}%{?dist}
+Version: 0.3
+Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -17,11 +17,13 @@ Group: System Environment/Base
 
 URL: http://www.gnome.org/projects/NetworkManager/
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-BuildRequires: glib2-devel
-BuildRequires: dbus-glib-devel >= 0.75
+Requires: dbus-glib >= 0.82
+Requires: glib2 >= 2.18
+BuildRequires: glib2-devel >= 2.18
+BuildRequires: dbus-glib-devel >= 0.82
 BuildRequires: libgudev-devel >= 143
-BuildRequires: ppp >= %{ppp_version}
-BuildRequires: ppp-devel >= %{ppp_version}
+BuildRequires: ppp = %{ppp_version}
+BuildRequires: ppp-devel = %{ppp_version}
 
 %description
 The ModemManager service provides a consistent API to operate many different
@@ -36,6 +38,8 @@ pppddir=`ls -1d %{_libdir}/pppd/2*`
 %configure \
 	--enable-more-warnings=yes \
 	--with-udev-base-dir=/lib/udev \
+	--with-tests=yes \
+	--with-docs=yes \
 	--disable-static \
 	--with-pppd-plugin-dir=$pppddir
 
@@ -70,6 +74,14 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Tue Jan 19 2010 Dan Williams <dcbw@redhat.com> - 0.3-1.git20100119
+- anydata: new plugin for AnyData CDMA modems (rh #547294)
+- core: fix crashes when devices are unplugged during operation (rh #553953)
+- cdma: prefer primary port for status/registration queries
+- core: fix probing/detection of some PIN-locked devices (rh #551376)
+- longcheer: add plugin for Alcatel (X020, X030, etc) and other devices
+- gsm: fix Nokia N80 network scan parsing
+
 * Fri Jan  1 2010 Dan Williams <dcbw@redhat.com> - 0.2.997-5.git20100101
 - core: fix apparent hangs by limiting retried serial writes
 - gsm: ensure modem state is reset when disabled
