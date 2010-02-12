@@ -1,10 +1,10 @@
-%define snapshot .git20100119
+%define snapshot .git20100211
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 1%{snapshot}%{?dist}
+Release: 2%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -76,6 +76,12 @@ rm -rf $RPM_BUILD_ROOT
 /lib/udev/rules.d/*
 
 %changelog
+* Thu Feb 11 2010 Dan Williams <dcbw@redhat.com> - 0.3-2.git20100211
+- core: startup speed improvements
+- core: GSM PIN checking improvements
+- huawei: fix EVDO-only connections on various devices (rh #553199)
+- longcheer: add support for more devices
+
 * Tue Jan 19 2010 Dan Williams <dcbw@redhat.com> - 0.3-1.git20100119
 - anydata: new plugin for AnyData CDMA modems (rh #547294)
 - core: fix crashes when devices are unplugged during operation (rh #553953)
