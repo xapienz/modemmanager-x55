@@ -25,6 +25,7 @@ BuildRequires: libgudev-devel >= 143
 BuildRequires: ppp = %{ppp_version}
 BuildRequires: ppp-devel = %{ppp_version}
 BuildRequires: polkit-devel
+BuildRequires: automake autoconf intltool libtool
 # for xsltproc
 BuildRequires: libxslt
 
