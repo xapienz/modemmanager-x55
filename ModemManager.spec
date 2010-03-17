@@ -1,10 +1,10 @@
-%define snapshot .git20100211
+%define snapshot .git20100317
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 2%{snapshot}%{?dist}
+Release: 3%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -24,6 +24,7 @@ BuildRequires: dbus-glib-devel >= 0.82
 BuildRequires: libgudev-devel >= 143
 BuildRequires: ppp = %{ppp_version}
 BuildRequires: ppp-devel = %{ppp_version}
+BuildRequires: polkit-devel
 # for xsltproc
 BuildRequires: libxslt
 
@@ -43,7 +44,8 @@ pppddir=`ls -1d %{_libdir}/pppd/2*`
 	--with-tests=yes \
 	--with-docs=yes \
 	--disable-static \
-	--with-pppd-plugin-dir=$pppddir
+	--with-pppd-plugin-dir=$pppddir \
+	--with-polkit=yes
 
 make %{?_smp_mflags}
 
@@ -61,9 +63,19 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.so
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post -p /sbin/ldconfig
+%post
+/sbin/ldconfig
+touch --no-create %{_datadir}/icons/hicolor
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  gtk-update-icon-cache -q %{_datadir}/icons/hicolor
+fi
 
-%postun -p /sbin/ldconfig
+%postun
+/sbin/ldconfig
+touch --no-create %{_datadir}/icons/hicolor
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  gtk-update-icon-cache -q %{_datadir}/icons/hicolor
+fi
 
 %files
 %defattr(0644, root, root, 0755)
@@ -74,8 +86,27 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{name}
 %attr(0755,root,root) %{_libdir}/%{name}/*.so*
 /lib/udev/rules.d/*
+%{_datadir}/polkit-1/actions/*.policy
+%{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Wed Mar 17 2010 Dan Williams <dcbw@redhat.com> - 0.3-3.git20100317
+- mbm: add device IDs for C3607w
+- mbm: fail earlier during connection failures
+- mbm: fix username/password authentication when checked by the network
+- hso: implement asynchronous signal quality updates
+- option: implement asynchronous signal quality updates
+- novatel: correctly handle CDMA signal quality
+- core: basic PolicyKit support
+- core: fix direct GSM registration information requests
+- core: general GSM PIN/PUK unlock fixes
+- core: poll GSM registration state internally for quicker status updates
+- core: implement GSM 2G/3G preference
+- core: implement GSM roaming allowed/disallowed preference
+- core: emit signals on access technology changes
+- core: better handling of disconnections
+- core: fix simple CDMA status requests
+
 * Thu Feb 11 2010 Dan Williams <dcbw@redhat.com> - 0.3-2.git20100211
 - core: startup speed improvements
 - core: GSM PIN checking improvements
