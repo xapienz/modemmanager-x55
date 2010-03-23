@@ -1,10 +1,10 @@
-%define snapshot .git20100317
+%define snapshot .git20100323
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 3%{snapshot}%{?dist}
+Release: 4%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -91,6 +91,13 @@ fi
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Tue Mar 23 2010 Dan Williams <dcbw@redhat.com> - 0.3-4.git20100323
+- core: ensure enabled modems are disabled when MM stops
+- core: better capability detection for Blackberry devices (rh #573510)
+- cdma: better checking of registration states (rh #540438, rh #569067, rh #552121)
+- gsm: don't block modem when it requires PIN2
+- option: fix access technology updates
+
 * Wed Mar 17 2010 Dan Williams <dcbw@redhat.com> - 0.3-3.git20100317
 - mbm: add device IDs for C3607w
 - mbm: fail earlier during connection failures
