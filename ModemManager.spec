@@ -1,10 +1,10 @@
-%define snapshot .git20100323
+%define snapshot .git20100331
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 4%{snapshot}%{?dist}
+Release: 5%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -91,6 +91,13 @@ fi
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Wed Mar 31 2010 Dan Williams <dcbw@redhat.com> - 0.3-5.git20100331
+- core: only export a modem when all its ports are handled (rh #540438, rh #569067, rh #552121)
+- cdma: handle signal quality requests while connected for more devices
+- cdma: handle serving system requests while connected for more devices
+- gsm: determine current access technology earlier
+- huawei: work around automatic registration issues on some devices
+
 * Tue Mar 23 2010 Dan Williams <dcbw@redhat.com> - 0.3-4.git20100323
 - core: ensure enabled modems are disabled when MM stops
 - core: better capability detection for Blackberry devices (rh #573510)
