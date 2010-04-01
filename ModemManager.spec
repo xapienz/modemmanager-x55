@@ -4,7 +4,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 5%{snapshot}%{?dist}
+Release: 6%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -91,6 +91,9 @@ fi
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Wed Mar 31 2010 Dan Williams <dcbw@redhat.com> - 0.3-6.git20100331
+- core: fix PPC/SPARC/etc builds
+
 * Wed Mar 31 2010 Dan Williams <dcbw@redhat.com> - 0.3-5.git20100331
 - core: only export a modem when all its ports are handled (rh #540438, rh #569067, rh #552121)
 - cdma: handle signal quality requests while connected for more devices
