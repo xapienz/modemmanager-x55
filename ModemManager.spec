@@ -95,6 +95,7 @@ fi
 - core: fix detection of some generic devices (rh #579247)
 - core: fix detection regression of some Huawei devices in 0.3-5
 - cdma: periodically poll registration state and signal quality
+- cdma: really fix registration detection on various devices (rh #569067)
 
 * Wed Mar 31 2010 Dan Williams <dcbw@redhat.com> - 0.3-6.git20100331
 - core: fix PPC/SPARC/etc builds
