@@ -1,10 +1,10 @@
-%define snapshot .git20100405
+%define snapshot .git20100408
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 7%{snapshot}%{?dist}
+Release: 8%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -46,7 +46,7 @@ pppddir=`ls -1d %{_libdir}/pppd/2*`
 	--with-docs=yes \
 	--disable-static \
 	--with-pppd-plugin-dir=$pppddir \
-	--with-polkit=yes
+	--with-polkit=no
 
 make %{?_smp_mflags}
 
@@ -91,6 +91,10 @@ fi
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Thu Apr  8 2010 Dan Williams <dcbw@redhat.com> - 0.3-8.git20100408
+- mbm: fix retrieval of current allowed mode
+- gsm: fix initialization issues with some devices (like Blackberries)
+
 * Mon Apr  5 2010 Dan Williams <dcbw@redhat.com> - 0.3-7.git20100405
 - core: fix detection of some generic devices (rh #579247)
 - core: fix detection regression of some Huawei devices in 0.3-5
