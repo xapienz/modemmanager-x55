@@ -1,10 +1,10 @@
-%define snapshot .git20100408
+%define snapshot .git20100409
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 8%{snapshot}%{?dist}
+Release: 9%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -91,6 +91,9 @@ fi
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Fri Apr  9 2010 Dan Williams <dcbw@redhat.com> - 0.3-9.git20100409
+- gsm: fix parsing Blackberry supported character sets response
+
 * Thu Apr  8 2010 Dan Williams <dcbw@redhat.com> - 0.3-8.git20100408
 - mbm: fix retrieval of current allowed mode
 - gsm: fix initialization issues with some devices (like Blackberries)
