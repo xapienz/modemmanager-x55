@@ -4,7 +4,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 9%{snapshot}%{?dist}
+Release: 10%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -54,29 +54,25 @@ make %{?_smp_mflags}
 make check
 
 %install
-rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.so
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %post
 /sbin/ldconfig
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  gtk-update-icon-cache -q %{_datadir}/icons/hicolor
-fi
+touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
 
 %postun
 /sbin/ldconfig
-touch --no-create %{_datadir}/icons/hicolor
-if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  gtk-update-icon-cache -q %{_datadir}/icons/hicolor
+if [ $1 -eq 0 ]; then
+  touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
+  gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 fi
+
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 
 %files
 %defattr(0644, root, root, 0755)
@@ -91,6 +87,10 @@ fi
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Fri Apr 30 2010 Matthias Clasen <mclasen@redhat.com> - 0.3-10.git20100409
+- Silence %%post
+- Update scripts
+
 * Fri Apr  9 2010 Dan Williams <dcbw@redhat.com> - 0.3-9.git20100409
 - gsm: fix parsing Blackberry supported character sets response
 
