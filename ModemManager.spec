@@ -1,10 +1,10 @@
-%define snapshot .git20100409
+%define snapshot .git20100502
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 10%{snapshot}%{?dist}
+Release: 11%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -87,6 +87,19 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Sun May  2 2010 Dan Williams <dcbw@redhat.com> - 0.3-11.git20100502
+- core: ignore some failures on disconnect (rh #578280)
+- core: add support for platform serial devices
+- gsm: better Blackberry DUN support
+- gsm: periodically poll access technology
+- cdma: prevent crash on modem removal (rh #571921)
+- mbm: add support for Sony Ericsson MD400, Dell 5541, and Dell 5542 modems
+- novatel: better signal strength reporting on CDMA cards
+- novatel: add access technology and mode preference support on GSM cards
+- zte: fix mode preference retrieval
+- longcheer: add support for Zoom modems (4595, 4596, etc)
+- longcheer: add access technology and mode preference support
+
 * Fri Apr 30 2010 Matthias Clasen <mclasen@redhat.com> - 0.3-10.git20100409
 - Silence %%post
 - Update scripts
