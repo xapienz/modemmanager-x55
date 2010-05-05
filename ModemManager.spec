@@ -1,10 +1,10 @@
-%define snapshot .git20100502
+%define snapshot .git20100504
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 11%{snapshot}%{?dist}
+Release: 12%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -87,6 +87,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Tue May  4 2010 Dan Williams <dcbw@redhat.com> - 0.3-12.git20100504
+- core: fix data port assignments (rh #587400)
+
 * Sun May  2 2010 Dan Williams <dcbw@redhat.com> - 0.3-11.git20100502
 - core: ignore some failures on disconnect (rh #578280)
 - core: add support for platform serial devices
