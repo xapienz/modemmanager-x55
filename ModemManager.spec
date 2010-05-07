@@ -1,10 +1,10 @@
-%define snapshot .git20100504
+%define snapshot .git20100507
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.3
-Release: 12%{snapshot}%{?dist}
+Release: 13%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -87,6 +87,11 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Fri May  7 2010 Dan Williams <dcbw@redhat.com> - 0.3-13.git20100507
+- core: fix crash when plugging in some Sierra and Option NV devices (rh #589798)
+- gsm: better compatibility with various Sony Ericsson phones
+- longcheer: better support for Alcatel X060s modems
+
 * Tue May  4 2010 Dan Williams <dcbw@redhat.com> - 0.3-12.git20100504
 - core: fix data port assignments (rh #587400)
 
