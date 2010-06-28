@@ -1,10 +1,10 @@
-%define snapshot .git20100507
+%define snapshot .git20100628
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.3
-Release: 13%{snapshot}%{?dist}
+Version: 0.4
+Release: 2%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -46,7 +46,8 @@ pppddir=`ls -1d %{_libdir}/pppd/2*`
 	--with-docs=yes \
 	--disable-static \
 	--with-pppd-plugin-dir=$pppddir \
-	--with-polkit=no
+	--with-polkit=no \
+	--with-dist-version=%{version}-%{release}
 
 make %{?_smp_mflags}
 
@@ -87,6 +88,20 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Mon Jun 28 2010 Dan Williams <dcbw@redhat.com> - 0.4-2.git20100628
+- core: fix crash during probing when a plugin doesn't support all ports (rh #603294)
+- gsm: better registration state checking when devices don't support AT+CREG (Blackberries)
+- gsm: add support for getting remaining unlock retry counts
+
+* Tue Jun 22 2010 Dan Williams <dcbw@redhat.com> - 0.4-1.git20100622
+- core: fix occasional crash when device is unplugged (rh #591728)
+- core: ensure errors are correctly returned when device is unplugged
+- core: ensure claimed ports don't fall back to Generic (rh #597296)
+- gsm: better compatibility with various phones
+- mbm: better detection of connection errors
+- simtech: add plugin for Simtech devices (like Airlink 3GU)
+- sierra: fix CDMA roaming detection
+
 * Fri May  7 2010 Dan Williams <dcbw@redhat.com> - 0.3-13.git20100507
 - core: fix crash when plugging in some Sierra and Option NV devices (rh #589798)
 - gsm: better compatibility with various Sony Ericsson phones
