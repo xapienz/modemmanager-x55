@@ -1,10 +1,10 @@
-%define snapshot .git20100628
+%define snapshot .git20100630
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.4
-Release: 2%{snapshot}%{?dist}
+Release: 3%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -17,7 +17,7 @@ Group: System Environment/Base
 
 URL: http://www.gnome.org/projects/NetworkManager/
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-Requires: dbus-glib >= 0.82
+Requires: dbus-glib >= 0.86
 Requires: glib2 >= 2.18
 BuildRequires: glib2-devel >= 2.18
 BuildRequires: dbus-glib-devel >= 0.82
@@ -88,6 +88,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Wed Jun 30 2010 Dan Williams <dcbw@redhat.com> - 0.4-3.git20100630
+- gsm: enable the location services API
+
 * Mon Jun 28 2010 Dan Williams <dcbw@redhat.com> - 0.4-2.git20100628
 - core: fix crash during probing when a plugin doesn't support all ports (rh #603294)
 - gsm: better registration state checking when devices don't support AT+CREG (Blackberries)
