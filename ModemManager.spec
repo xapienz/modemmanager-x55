@@ -1,10 +1,10 @@
-%define snapshot .git20100630
+%define snapshot .git20100720
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.4
-Release: 3%{snapshot}%{?dist}
+Release: 4%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -88,6 +88,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 
 %changelog
+* Tue Jul 20 2010 Dan Williams <dcbw@redhat.com> - 0.4-4.git20100720
+- gsm: fix location services API signals
+- gsm: fix issue with invalid operator names (rh #597088)
+- novatel: fix S720 signal strength reporting
+- novatel: detect CDMA home/roaming status
+
 * Wed Jun 30 2010 Dan Williams <dcbw@redhat.com> - 0.4-3.git20100630
 - gsm: enable the location services API
 
