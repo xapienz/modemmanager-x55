@@ -4,7 +4,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.4
-Release: 5%{snapshot}%{?dist}
+Release: 6%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -89,6 +89,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Tue Feb  1 2011 Dan Williams <dcbw@redhat.com> - 0.4-6.git20110201
+- Attempt to fix Icera plugin crash on second dial
+
 * Tue Feb  1 2011 Dan Williams <dcbw@redhat.com> - 0.4-5.git20110201
 - core: add device and SIM identifier properties
 - dbus: fix property access permissions via D-Bus (rh #58594)
