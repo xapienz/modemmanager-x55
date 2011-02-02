@@ -1,10 +1,10 @@
-%define snapshot .git20100720
+%define snapshot .git20110201
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.4
-Release: 4%{snapshot}%{?dist}
+Release: 5%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -38,14 +38,13 @@ modems, including mobile broadband (3G) devices.
 
 %build
 
-pppddir=`ls -1d %{_libdir}/pppd/2*`
 %configure \
 	--enable-more-warnings=yes \
 	--with-udev-base-dir=/lib/udev \
 	--with-tests=yes \
 	--with-docs=yes \
 	--disable-static \
-	--with-pppd-plugin-dir=$pppddir \
+	--with-pppd-plugin-dir=%{_libdir}/pppd/%{ppp_version} \
 	--with-polkit=no \
 	--with-dist-version=%{version}-%{release}
 
@@ -60,6 +59,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.so
+rm -f $RPM_BUILD_ROOT%{_includedir}/mm/mm-modem.h
 
 %post
 /sbin/ldconfig
@@ -86,8 +86,25 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 /lib/udev/rules.d/*
 %{_datadir}/polkit-1/actions/*.policy
 %{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
+%{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Tue Feb  1 2011 Dan Williams <dcbw@redhat.com> - 0.4-5.git20110201
+- core: add device and SIM identifier properties
+- dbus: fix property access permissions via D-Bus (rh #58594)
+- cdma: better detection of EVDO registration
+- cdma: recognize dual-mode devices as CDMA instead of GSM
+- gsm: better handling of wrong PIN entry
+- gsm: allow usage of older GSM character encoding schemes
+- gsm: preliminary USSD support
+- gsm: fix handling of modems that report signal strength via +CIND
+- sierra: fix handling of Sierra CnS ports mistakenly recognized as QCDM
+- sierra: ensure packet-switched network attachment before dialing
+- zte: add support for T-Mobile Rocket 2.0
+- mbm: add support for HP-branded Ericsson devices
+- linktop: add support for Linktop/Teracom LW273
+- x22x: add support for various Alcatel devices (like the X220D)
+
 * Tue Jul 20 2010 Dan Williams <dcbw@redhat.com> - 0.4-4.git20100720
 - gsm: fix location services API signals
 - gsm: fix issue with invalid operator names (rh #597088)
