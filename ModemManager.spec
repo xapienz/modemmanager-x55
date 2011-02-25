@@ -4,7 +4,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.4
-Release: 7%{snapshot}%{?dist}
+Release: 7%{snapshot}%{?dist}.1
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -29,12 +29,20 @@ BuildRequires: automake autoconf intltool libtool
 # for xsltproc
 BuildRequires: libxslt
 
+# HACK patch to workaround FTBFS on sparc, type mismatch where
+# suseconds_t is int -- Rex
+Patch1: ModemManager-0.4-hack_sparc_werror.patch
+
 %description
 The ModemManager service provides a consistent API to operate many different
 modems, including mobile broadband (3G) devices.
 
 %prep
 %setup -q
+
+%ifarch %{sparc} 
+%patch1 -p1 -b .hack_sparc_werror.patch
+%endif
 
 %build
 
@@ -89,6 +97,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Fri Feb 25 2011 Rex Dieter <rdieter@fedoraproejct.org> 0.4-7.git20110201.1
+- hack around FTBFS on sparc
+
 * Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4-7.git20110201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 

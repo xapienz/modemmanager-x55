@@ -1,0 +1,12 @@
+diff -up ModemManager-0.4/src/mm-log.c.format ModemManager-0.4/src/mm-log.c
+--- ModemManager-0.4/src/mm-log.c.format	2011-01-24 14:31:25.000000000 -0600
++++ ModemManager-0.4/src/mm-log.c	2011-02-25 08:03:00.315754971 -0600
+@@ -88,7 +88,7 @@ _mm_log (const char *loc,
+             usecs += 1000000;
+         }
+ 
+-        snprintf (&tsbuf[0], sizeof (tsbuf), " [%06ld.%06ld]", secs, usecs);
++        snprintf (&tsbuf[0], sizeof (tsbuf), " [%06ld.%06ld]", secs, (long) usecs);
+     }
+ 
+     if ((log_level & LOGL_DEBUG) && (level == LOGL_DEBUG))
