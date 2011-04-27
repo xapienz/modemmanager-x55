@@ -1,10 +1,10 @@
-%define snapshot .git20110201
+%define snapshot .git20110427
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.4
-Release: 7%{snapshot}%{?dist}.1
+Release: 8%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -39,10 +39,7 @@ modems, including mobile broadband (3G) devices.
 
 %prep
 %setup -q
-
-%ifarch %{sparc} 
 %patch1 -p1 -b .hack_sparc_werror.patch
-%endif
 
 %build
 
@@ -97,6 +94,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Wed Apr 27 2011 Dan Williams <dcbw@redhat.com> 0.4-8.git20110427
+- samsung: add support for Samsung Y3300 GSM modem
+- huawei: fixes for probing and handling various Huawei devices
+- wavecom: add support for some Wavecom modems
+- zte: fix crashes with Icera-based devices
+- mbm: add support for Lenovo F5521gw module
+- core: add support for basic SMS reception
+- core: faster probing for devices that support it (option, samsung)
+
 * Fri Feb 25 2011 Rex Dieter <rdieter@fedoraproejct.org> 0.4-7.git20110201.1
 - hack around FTBFS on sparc
 
