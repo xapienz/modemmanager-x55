@@ -1,10 +1,10 @@
-%define snapshot .git20110427
+%define snapshot %{nil}
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.4
-Release: 8%{snapshot}%{?dist}
+Version: 0.4.997
+Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -24,7 +24,6 @@ BuildRequires: dbus-glib-devel >= 0.82
 BuildRequires: libgudev-devel >= 143
 BuildRequires: ppp = %{ppp_version}
 BuildRequires: ppp-devel = %{ppp_version}
-BuildRequires: polkit-devel
 BuildRequires: automake autoconf intltool libtool
 # for xsltproc
 BuildRequires: libxslt
@@ -94,6 +93,14 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Mon Jun  6 2011 Dan Williams <dcbw@redhat.com> - 0.4.997-1
+- Update to 0.5-beta3
+- samsung: only support Y3300 (fixes issues with other Samsung modems)
+- longcheer: restrict to only supported devices
+- simtech: add support for Prolink PH-300
+- gsm: various SMS cleanups and fixes
+- x22x: add support for access technology reporting and the Alcatel X200 modem
+
 * Wed Apr 27 2011 Dan Williams <dcbw@redhat.com> 0.4-8.git20110427
 - samsung: add support for Samsung Y3300 GSM modem
 - huawei: fixes for probing and handling various Huawei devices
