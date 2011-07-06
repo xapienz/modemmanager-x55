@@ -28,6 +28,8 @@ BuildRequires: automake autoconf intltool libtool
 # for xsltproc
 BuildRequires: libxslt
 
+Patch0: buildsys-hates-openpty.patch
+
 # HACK patch to workaround FTBFS on sparc, type mismatch where
 # suseconds_t is int -- Rex
 Patch1: ModemManager-0.4-hack_sparc_werror.patch
@@ -38,10 +40,12 @@ modems, including mobile broadband (3G) devices.
 
 %prep
 %setup -q
+%patch0 -p1 -b .pty
 %patch1 -p1 -b .hack_sparc_werror.patch
 
 %build
 
+autoreconf -i
 %configure \
 	--enable-more-warnings=yes \
 	--with-udev-base-dir=/lib/udev \
