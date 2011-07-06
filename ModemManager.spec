@@ -1,9 +1,9 @@
-%define snapshot %{nil}
+%define snapshot .git20110706
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.4.997
+Version: 0.4.998
 Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
@@ -93,6 +93,13 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Wed Jul  7 2011 Dan Williams <dcbw@redhat.com> - 0.4.998-1.git20110706
+- Update to 0.5-beta4
+- gsm: various USSD fixes
+- samsung: support for Y3400 module and various other fixes
+- gobi: support access technology reporting while disconnected
+- nokia: fix issues with N900 USB connected operation (rh #583691)
+
 * Mon Jun  6 2011 Dan Williams <dcbw@redhat.com> - 0.4.997-1
 - Update to 0.5-beta3
 - samsung: only support Y3300 (fixes issues with other Samsung modems)
