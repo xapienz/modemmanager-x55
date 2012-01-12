@@ -4,7 +4,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.4.998
-Release: 1%{snapshot}%{?dist}
+Release: 2%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -97,6 +97,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.998-2.git20110706
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Wed Jul  7 2011 Dan Williams <dcbw@redhat.com> - 0.4.998-1.git20110706
 - Update to 0.5-beta4
 - gsm: various USSD fixes
