@@ -1,10 +1,10 @@
-%define snapshot .git20110706
+%define snapshot %{nil}
 %define ppp_version 2.4.5
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.4.998
-Release: 2%{snapshot}%{?dist}
+Version: 0.5.1.96
+Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -30,10 +30,6 @@ BuildRequires: libxslt
 
 Patch0: buildsys-hates-openpty.patch
 
-# HACK patch to workaround FTBFS on sparc, type mismatch where
-# suseconds_t is int -- Rex
-Patch1: ModemManager-0.4-hack_sparc_werror.patch
-
 %description
 The ModemManager service provides a consistent API to operate many different
 modems, including mobile broadband (3G) devices.
@@ -41,7 +37,6 @@ modems, including mobile broadband (3G) devices.
 %prep
 %setup -q
 %patch0 -p1 -b .pty
-%patch1 -p1 -b .hack_sparc_werror.patch
 
 %build
 
@@ -97,6 +92,21 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Tue Feb  7 2012 Dan Williams <dcbw@redhat.com> - 0.5.1.96-1
+- Update to git snapshot of 0.5.2
+- option: fix handling of access technology reporting
+- cdma: fix handling of EVDO registration states
+- mbm: fix problems reconnecting on Ericsson F5521gw modems
+- gsm: fix connections using the Motorola Flipout
+- gsm: better detection of registration state when connecting
+- mbm: add support for more Ericsson modems
+- gobi: ensure rebranded Gobi devices are driven by Gobi
+- gsm: fix SMS multipart messages, PDU-only mode, and text-mode message listing
+- huawei: fix USSD handling
+- nokia: add support for Nokia Internet Sticks
+- gsm: fix registration response handling on some newer devices
+- sierra: add support for Icera-based devices (USB305, AT&T Lightning)
+
 * Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.998-2.git20110706
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 

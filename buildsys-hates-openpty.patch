@@ -6,6 +6,7 @@ diff -up ModemManager-0.4.998/src/tests/Makefile.am.foo ModemManager-0.4.998/src
  	$(abs_builddir)/test-modem-helpers
  	$(abs_builddir)/test-charsets
 -	$(abs_builddir)/test-qcdm-serial-port
+ 	$(abs_builddir)/test-sms
  
  endif
  
