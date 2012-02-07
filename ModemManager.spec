@@ -21,7 +21,7 @@ Requires: dbus-glib >= 0.86
 Requires: glib2 >= 2.18
 BuildRequires: glib2-devel >= 2.18
 BuildRequires: dbus-glib-devel >= 0.82
-BuildRequires: libgudev-devel >= 143
+BuildRequires: libgudev1-devel >= 143
 BuildRequires: ppp = %{ppp_version}
 BuildRequires: ppp-devel = %{ppp_version}
 BuildRequires: automake autoconf intltool libtool
