@@ -3,7 +3,7 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.5.1.96
+Version: 0.5.2.0
 Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
@@ -92,6 +92,17 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Wed Mar 14 2012 Dan Williams <dcbw@redhat.com> - 0.5.2.0-1
+- Update to 0.5.2
+- core: retry sending SMS in PDU mode if text fails
+- hso: fix connection regression due to Nokia device fixes
+
+* Sat Feb 25 2012 Dan Williams <dcbw@redhat.com> - 0.5.1.97-1
+- Update to 0.5.2-rc1
+- core: fix a few crashes
+- nokia: fix issues with various Nokia devices
+- huawei: fix modem crashes with older Huawei devices (like E220)
+
 * Tue Feb  7 2012 Dan Williams <dcbw@redhat.com> - 0.5.1.96-1
 - Update to git snapshot of 0.5.2
 - option: fix handling of access technology reporting
