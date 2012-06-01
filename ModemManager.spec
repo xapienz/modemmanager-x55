@@ -3,8 +3,8 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.5.2.0
-Release: 1%{snapshot}%{?dist}
+Version: 0.5.999
+Release: 0.1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -62,7 +62,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.so
-rm -f $RPM_BUILD_ROOT%{_includedir}/mm/mm-modem.h
+# Don't distribute the API yet
+rm -f $RPM_BUILD_ROOT%{_includedir}/mm/ModemManager.h
 
 %post
 /sbin/ldconfig
@@ -87,11 +88,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %dir %{_libdir}/%{name}
 %attr(0755,root,root) %{_libdir}/%{name}/*.so*
 /lib/udev/rules.d/*
-%{_datadir}/polkit-1/actions/*.policy
-%{_datadir}/icons/hicolor/22x22/apps/modem-manager.png
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Fri Jun  1 2012 Dan Williams <dcbw@redhat.com> - 0.5.999-0.1
+- Update to 0.6 snapshot
+- iridium: new plugin for some Iridium satphones
+- cinterion: new plugin for some Cinterion modems
+- core: better handling of different serial port types (Huawei E220, various Sierra)
+
 * Wed Mar 14 2012 Dan Williams <dcbw@redhat.com> - 0.5.2.0-1
 - Update to 0.5.2
 - core: retry sending SMS in PDU mode if text fails
