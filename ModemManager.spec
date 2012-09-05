@@ -3,15 +3,15 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.5.999
-Release: 0.2%{snapshot}%{?dist}
+Version: 0.6.0.0
+Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
 #    ./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var
 #    make distcheck
 #
-Source: %{name}-%{version}%{snapshot}.tar.bz2
+Source: %{name}-%{version}%{snapshot}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -42,7 +42,7 @@ modems, including mobile broadband (3G) devices.
 
 autoreconf -i
 %configure \
-	--enable-more-warnings=yes \
+	--enable-more-warnings=error \
 	--with-udev-base-dir=/lib/udev \
 	--with-tests=yes \
 	--with-docs=yes \
@@ -62,7 +62,6 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.so
-# Don't distribute the API yet
 rm -f $RPM_BUILD_ROOT%{_includedir}/mm/ModemManager.h
 
 %post
@@ -91,14 +90,23 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
-* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.999-0.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+* Tue Sep  4 2012 Dan Williams <dcbw@redhat.com> - 0.6.0.0-1
+- Update to 0.6.0
+- core: fix SMS notifications on many Qualcomm devices
+- core: use SMS PDU mode by default (more compatible)
+- novatel: fix CDMA roaming indication
+- zte: support more devices
+- zte: power down modems when disabled
+- mbm: power down modems when disabled
+- mbm: add support for Ericsson H5321
+- sierra: fix detection of secondary ports
+- sierra: more reliable connections with USB 305/AT&T Lightning
 
-* Fri Jun  1 2012 Dan Williams <dcbw@redhat.com> - 0.5.999-0.1
-- Update to 0.6 snapshot
-- iridium: new plugin for some Iridium satphones
-- cinterion: new plugin for some Cinterion modems
-- core: better handling of different serial port types (Huawei E220, various Sierra)
+* Fri Jul 20 2012 Dan Williams <dcbw@redhat.com> - 0.5.3.96-1
+- Update to 0.5.3.96 (0.5.4-rc2)
+- core: fix SMS handling on a number of devices
+- zte: support for devices that use Icera chipsets
+- core: ignore unsupported QMI WWAN ports (rh #835153)
 
 * Wed Mar 14 2012 Dan Williams <dcbw@redhat.com> - 0.5.2.0-1
 - Update to 0.5.2
