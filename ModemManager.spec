@@ -4,7 +4,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.6.0.0
-Release: 2%{snapshot}%{?dist}
+Release: 3%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -32,6 +32,7 @@ Patch0: buildsys-hates-openpty.patch
 
 Patch1: rh862341-1-UCS2-conversions.patch
 Patch2: rh862341-2-parse_operator.patch
+Patch3: rh861620-blacklist-arduino-devices.patch
 
 %description
 The ModemManager service provides a consistent API to operate many different
@@ -42,6 +43,7 @@ modems, including mobile broadband (3G) devices.
 %patch0 -p1 -b .pty
 %patch1 -p1 -b .UCS2-conversion
 %patch2 -p1 -b .parse-operator
+%patch3 -p1 -b .arduino
 
 %build
 
@@ -95,6 +97,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Thu Jan 31 2013 Tom Callaway <spot@fedoraproject.org> - 0.6.0.0-3
+- blacklist common arduino devices (rh #861620)
+
 * Tue Nov 27 2012 Jiří Klimeš <jklimes@redhat.com> - 0.6.0.0-2
 - core: fix a crash in g_utf8_validate() (rh #862341)
 
