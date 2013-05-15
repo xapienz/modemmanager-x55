@@ -2,12 +2,11 @@ diff -up ModemManager-0.4.998/src/tests/Makefile.am.foo ModemManager-0.4.998/src
 --- ModemManager-0.4.998/src/tests/Makefile.am.foo	2011-07-06 17:59:53.711343366 -0500
 +++ ModemManager-0.4.998/src/tests/Makefile.am	2011-07-06 18:00:08.971152593 -0500
 @@ -45,7 +45,6 @@ if WITH_TESTS
- check-local: test-modem-helpers
+ check-local: $(noinst_PROGRAMS)
  	$(abs_builddir)/test-modem-helpers
  	$(abs_builddir)/test-charsets
 -	$(abs_builddir)/test-qcdm-serial-port
- 	$(abs_builddir)/test-sms
- 
- endif
- 
+ 	$(abs_builddir)/test-sms-part
+ if WITH_QMI
+ 	$(abs_builddir)/test-modem-helpers-qmi
 

@@ -1,58 +1,88 @@
-%define snapshot %{nil}
-%define ppp_version 2.4.5
+%global snapshot .git20130515
+%global ppp_version 2.4.5
+%global glib2_version 2.32
+%global systemd_dir %{_prefix}/lib/systemd/system
+
+%global hardened_build 1
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.6.0.0
-Release: 3%{snapshot}%{?dist}
+Version: 0.7.990
+Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
 #    ./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var
 #    make distcheck
 #
-Source: %{name}-%{version}%{snapshot}.tar.xz
+Source: %{name}-%{version}%{snapshot}.tar.bz2
 License: GPLv2+
 Group: System Environment/Base
 
 URL: http://www.gnome.org/projects/NetworkManager/
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-Requires: dbus-glib >= 0.86
-Requires: glib2 >= 2.18
-BuildRequires: glib2-devel >= 2.18
-BuildRequires: dbus-glib-devel >= 0.82
+Requires: glib2 >= %{glib2_version}
+BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libgudev1-devel >= 143
+BuildRequires: libqmi-devel >= 1.3
 BuildRequires: ppp = %{ppp_version}
 BuildRequires: ppp-devel = %{ppp_version}
 BuildRequires: automake autoconf intltool libtool
+BuildRequires: intltool
 # for xsltproc
 BuildRequires: libxslt
 
 Patch0: buildsys-hates-openpty.patch
 
-Patch1: rh862341-1-UCS2-conversions.patch
-Patch2: rh862341-2-parse_operator.patch
-Patch3: rh861620-blacklist-arduino-devices.patch
-
 %description
-The ModemManager service provides a consistent API to operate many different
-modems, including mobile broadband (3G) devices.
+The ModemManager service manages WWAN modems and provides a consistent API for
+interacting with these devices to client applications.
+
+%package devel
+Summary: Libraries and headers for adding ModemManager support to applications
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: pkgconfig
+
+%description devel
+This package contains various headers for accessing some ModemManager functionality
+from applications.
+
+%package glib
+Summary: Libraries for adding ModemManager support to applications that use glib.
+Group: Development/Libraries
+Requires: glib2 >= %{glib2_version}
+
+%description glib
+This package contains the libraries that make it easier to use some ModemManager
+functionality from applications that use glib.
+
+%package glib-devel
+Summary: Libraries and headers for adding ModemManager support to applications that use glib.
+Group: Development/Libraries
+Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: glib2-devel >= %{glib2_version}
+Requires: pkgconfig
+
+%description glib-devel
+This package contains various headers for accessing some ModemManager functionality
+from glib applications.
 
 %prep
 %setup -q
 %patch0 -p1 -b .pty
-%patch1 -p1 -b .UCS2-conversion
-%patch2 -p1 -b .parse-operator
-%patch3 -p1 -b .arduino
 
 %build
 
-autoreconf -i
+autoreconf -i --force
+intltoolize --force
 %configure \
 	--enable-more-warnings=error \
 	--with-udev-base-dir=/lib/udev \
 	--with-tests=yes \
 	--with-docs=yes \
+	--with-libqmi=yes \
 	--disable-static \
 	--with-pppd-plugin-dir=%{_libdir}/pppd/%{ppp_version} \
 	--with-polkit=no \
@@ -66,37 +96,66 @@ make check
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 
+rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.so
-rm -f $RPM_BUILD_ROOT%{_includedir}/mm/ModemManager.h
 
 %post
-/sbin/ldconfig
-touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+%systemd_post ModemManager.service
+
+%preun
+%systemd_preun ModemManager.service
 
 %postun
 /sbin/ldconfig
-if [ $1 -eq 0 ]; then
-  touch --no-create %{_datadir}/icons/hicolor >&/dev/null || :
-  gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
+if [ $1 -eq 0 ] ; then
+    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
+%systemd_postun
 
 %posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+
+%post	glib -p /sbin/ldconfig
+%postun	glib -p /sbin/ldconfig
 
 %files
-%defattr(0644, root, root, 0755)
 %doc COPYING README
-%{_sysconfdir}/dbus-1/system.d/org.freedesktop.ModemManager.conf
-%{_datadir}/dbus-1/system-services/org.freedesktop.ModemManager.service
-%attr(0755,root,root) %{_sbindir}/modem-manager
+%{_sysconfdir}/dbus-1/system.d/org.freedesktop.ModemManager1.conf
+%{_datadir}/dbus-1/system-services/org.freedesktop.ModemManager1.service
+%attr(0755,root,root) %{_sbindir}/ModemManager
+%attr(0755,root,root) %{_bindir}/mmcli
 %dir %{_libdir}/%{name}
 %attr(0755,root,root) %{_libdir}/%{name}/*.so*
 /lib/udev/rules.d/*
 %{_datadir}/dbus-1/interfaces/*.xml
+%{systemd_dir}/ModemManager.service
+%{_datadir}/icons/hicolor/22x22/apps/*.png
+%{_mandir}/man8/*
+
+%files devel
+%{_includedir}/ModemManager/*.h
+%dir %{_datadir}/gtk-doc/html/%{name}
+%{_datadir}/gtk-doc/html/%{name}/*
+%{_libdir}/pkgconfig/%{name}.pc
+
+%files glib
+%{_libdir}/libmm-glib.so
+
+%files glib-devel
+%{_libdir}/libmm-glib.so.*
+%{_includedir}/libmm-glib/*.h
+%{_libdir}/pkgconfig/mm-glib.pc
+%dir %{_datadir}/gtk-doc/html/libmm-glib
+%{_datadir}/gtk-doc/html/libmm-glib/*
 
 %changelog
+* Wed May 15 2013 Dan Williams <dcbw@redhat.com> - 0.7.990-1.git20130515
+- Update to 0.8 snapshot
+
 * Thu Jan 31 2013 Tom Callaway <spot@fedoraproject.org> - 0.6.0.0-3
 - blacklist common arduino devices (rh #861620)
 
