@@ -8,7 +8,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.7.990
-Release: 1%{snapshot}%{?dist}
+Release: 2%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -40,7 +40,7 @@ interacting with these devices to client applications.
 %package devel
 Summary: Libraries and headers for adding ModemManager support to applications
 Group: Development/Libraries
-Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
 %description devel
@@ -59,8 +59,8 @@ functionality from applications that use glib.
 %package glib-devel
 Summary: Libraries and headers for adding ModemManager support to applications that use glib.
 Group: Development/Libraries
-Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-Requires: %{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 Requires: glib2-devel >= %{glib2_version}
 Requires: pkgconfig
 
@@ -152,6 +152,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/gtk-doc/html/libmm-glib/*
 
 %changelog
+* Thu May 16 2013 Bruno Wolff III <bruno@wolff.to> - 0.7.990-2.git20130515
+- Removed epoch macro references
+
 * Wed May 15 2013 Dan Williams <dcbw@redhat.com> - 0.7.990-1.git20130515
 - Update to 0.8 snapshot
 
