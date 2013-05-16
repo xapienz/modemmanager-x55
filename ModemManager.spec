@@ -29,7 +29,7 @@ BuildRequires: ppp = %{ppp_version}
 BuildRequires: ppp-devel = %{ppp_version}
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
-BuildRequires: dia libxslt
+BuildRequires: dia libxslt gtk-doc
 
 Patch0: buildsys-hates-openpty.patch
 
