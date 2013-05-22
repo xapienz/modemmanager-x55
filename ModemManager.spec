@@ -8,7 +8,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.7.990
-Release: 2%{snapshot}%{?dist}
+Release: 3%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -142,16 +142,19 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_libdir}/pkgconfig/%{name}.pc
 
 %files glib
-%{_libdir}/libmm-glib.so
+%{_libdir}/libmm-glib.so.*
 
 %files glib-devel
-%{_libdir}/libmm-glib.so.*
+%{_libdir}/libmm-glib.so
 %{_includedir}/libmm-glib/*.h
 %{_libdir}/pkgconfig/mm-glib.pc
 %dir %{_datadir}/gtk-doc/html/libmm-glib
 %{_datadir}/gtk-doc/html/libmm-glib/*
 
 %changelog
+* Wed May 22 2013 Kalev Lember <kalevlember@gmail.com> - 0.7.990-3.git20130515
+- Install the libmm-glib.so symlink in -glib-devel
+
 * Thu May 16 2013 Bruno Wolff III <bruno@wolff.to> - 0.7.990-2.git20130515
 - Removed epoch macro references
 
