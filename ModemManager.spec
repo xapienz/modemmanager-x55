@@ -146,6 +146,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files glib-devel
 %{_libdir}/libmm-glib.so
+%dir %{_includedir}/libmm-glib
 %{_includedir}/libmm-glib/*.h
 %{_libdir}/pkgconfig/mm-glib.pc
 %dir %{_datadir}/gtk-doc/html/libmm-glib
@@ -154,6 +155,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Wed May 22 2013 Kalev Lember <kalevlember@gmail.com> - 0.7.990-3.git20130515
 - Install the libmm-glib.so symlink in -glib-devel
+- Include the /usr/share/libmm-glib directory in -glib-devel
 
 * Thu May 16 2013 Bruno Wolff III <bruno@wolff.to> - 0.7.990-2.git20130515
 - Removed epoch macro references
