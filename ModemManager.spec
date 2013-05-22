@@ -61,6 +61,7 @@ Summary: Libraries and headers for adding ModemManager support to applications t
 Group: Development/Libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
+Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Requires: glib2-devel >= %{glib2_version}
 Requires: pkgconfig
 
@@ -156,6 +157,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 * Wed May 22 2013 Kalev Lember <kalevlember@gmail.com> - 0.7.990-3.git20130515
 - Install the libmm-glib.so symlink in -glib-devel
 - Include the /usr/share/libmm-glib directory in -glib-devel
+- Make sure -glib-devel subpackage depends on the base -glib package
 
 * Thu May 16 2013 Bruno Wolff III <bruno@wolff.to> - 0.7.990-2.git20130515
 - Removed epoch macro references
