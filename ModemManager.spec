@@ -1,4 +1,4 @@
-%global snapshot .git20130515
+%global snapshot .git20130607
 %global ppp_version 2.4.5
 %global glib2_version 2.32
 %global systemd_dir %{_prefix}/lib/systemd/system
@@ -7,8 +7,8 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.7.990
-Release: 3%{snapshot}%{?dist}
+Version: 0.7.991
+Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -81,7 +81,7 @@ intltoolize --force
 	--enable-more-warnings=error \
 	--with-udev-base-dir=/lib/udev \
 	--with-tests=yes \
-	--with-docs=yes \
+	--enable-gtk-doc=yes \
 	--with-libqmi=yes \
 	--disable-static \
 	--with-pppd-plugin-dir=%{_libdir}/pppd/%{ppp_version} \
@@ -154,6 +154,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/gtk-doc/html/libmm-glib/*
 
 %changelog
+* Fri Jun  7 2013 Dan Williams <dcbw@redhat.com> - 0.7.991-1.git20130607
+- Update to 0.7.991 snapshot
+- Fix SMS validity parsing
+- Allow registration changes to 'searching' without disconnecting
+- Fix reading SMS messages from some QMI-based devices
+- Increase connection timeout for Novatel E362
+- Fix PIN retries checking when unlocking Ericsson devices
+- Better handling of supported and preferred modes (eg 2G, 3G, 4G preference)
+
 * Wed May 22 2013 Kalev Lember <kalevlember@gmail.com> - 0.7.990-3.git20130515
 - Install the libmm-glib.so symlink in -glib-devel
 - Include the /usr/share/libmm-glib directory in -glib-devel
