@@ -1,5 +1,4 @@
-%global snapshot .git20130607
-%global ppp_version 2.4.5
+%global snapshot .git20130710
 %global glib2_version 2.32
 %global systemd_dir %{_prefix}/lib/systemd/system
 
@@ -8,14 +7,14 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 0.7.991
-Release: 1%{snapshot}%{?dist}
+Release: 2%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
 #    ./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var
 #    make distcheck
 #
-Source: %{name}-%{version}%{snapshot}.tar.bz2
+Source: %{name}-%{version}%{snapshot}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -25,8 +24,6 @@ Requires: glib2 >= %{glib2_version}
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: libqmi-devel >= 1.3
-BuildRequires: ppp = %{ppp_version}
-BuildRequires: ppp-devel = %{ppp_version}
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
 BuildRequires: dia libxslt gtk-doc
@@ -79,12 +76,10 @@ autoreconf -i --force
 intltoolize --force
 %configure \
 	--enable-more-warnings=error \
-	--with-udev-base-dir=/lib/udev \
-	--with-tests=yes \
+	--with-udev-base-dir=%{_libdir}/udev \
 	--enable-gtk-doc=yes \
-	--with-libqmi=yes \
+	--with-qmi=yes \
 	--disable-static \
-	--with-pppd-plugin-dir=%{_libdir}/pppd/%{ppp_version} \
 	--with-polkit=no \
 	--with-dist-version=%{version}-%{release}
 
@@ -98,8 +93,6 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/pppd/2.*/*.so
 
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
@@ -130,7 +123,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %attr(0755,root,root) %{_bindir}/mmcli
 %dir %{_libdir}/%{name}
 %attr(0755,root,root) %{_libdir}/%{name}/*.so*
-/lib/udev/rules.d/*
+%{_libdir}/udev/rules.d/*
 %{_datadir}/dbus-1/interfaces/*.xml
 %{systemd_dir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
@@ -154,6 +147,14 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/gtk-doc/html/libmm-glib/*
 
 %changelog
+* Wed Jul 10 2013 Dan Williams <dcbw@redhat.com> - 0.7.991-2.git20130710
+- Handle PNP connected devices
+- Fall back to AT for messaging if QMI modem doesn't support the WMS service
+- Fix IPv6 bearer creation for HSO devices
+- Fix detection of supported modes on Icera-based modems
+- Fix handling of some Icera-based modems with limited capability ports
+- Add support for Olivetti Olicard 200
+
 * Fri Jun  7 2013 Dan Williams <dcbw@redhat.com> - 0.7.991-1.git20130607
 - Update to 0.7.991 snapshot
 - Fix SMS validity parsing
@@ -227,7 +228,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 * Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.998-2.git20110706
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
-* Wed Jul  7 2011 Dan Williams <dcbw@redhat.com> - 0.4.998-1.git20110706
+* Thu Jul  7 2011 Dan Williams <dcbw@redhat.com> - 0.4.998-1.git20110706
 - Update to 0.5-beta4
 - gsm: various USSD fixes
 - samsung: support for Y3400 module and various other fixes
