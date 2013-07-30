@@ -1,4 +1,4 @@
-%global snapshot .git20130710
+%global snapshot .git20130723
 %global glib2_version 2.32
 %global systemd_dir %{_prefix}/lib/systemd/system
 
@@ -6,8 +6,8 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 0.7.991
-Release: 2%{snapshot}%{?dist}
+Version: 1.0.1
+Release: 1%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -23,10 +23,10 @@ BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires: glib2 >= %{glib2_version}
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libgudev1-devel >= 143
-BuildRequires: libqmi-devel >= 1.3
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
 BuildRequires: dia libxslt gtk-doc
+BuildRequires: libqmi-devel >= 1.4
 
 Patch0: buildsys-hates-openpty.patch
 
@@ -79,6 +79,7 @@ intltoolize --force
 	--with-udev-base-dir=%{_libdir}/udev \
 	--enable-gtk-doc=yes \
 	--with-qmi=yes \
+	--without-mbim \
 	--disable-static \
 	--with-polkit=no \
 	--with-dist-version=%{version}-%{release}
@@ -147,6 +148,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/gtk-doc/html/libmm-glib/*
 
 %changelog
+* Tue Jul 23 2013 Dan Williams <dcbw@redhat.com> - 1.0.1-1.git20130723
+- Update to 1.0.1 release
+- Enable QMI support
+
 * Wed Jul 10 2013 Dan Williams <dcbw@redhat.com> - 0.7.991-2.git20130710
 - Handle PNP connected devices
 - Fall back to AT for messaging if QMI modem doesn't support the WMS service
