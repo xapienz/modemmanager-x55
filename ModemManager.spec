@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.0.1
-Release: 1%{snapshot}%{?dist}
+Release: 2%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
 # tarball built with:
@@ -25,7 +25,7 @@ BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
-BuildRequires: dia libxslt gtk-doc
+BuildRequires: libxslt gtk-doc
 BuildRequires: libqmi-devel >= 1.4
 
 Patch0: buildsys-hates-openpty.patch
@@ -76,7 +76,7 @@ autoreconf -i --force
 intltoolize --force
 %configure \
 	--enable-more-warnings=error \
-	--with-udev-base-dir=%{_libdir}/udev \
+	--with-udev-base-dir=%{_prefix}/lib/udev \
 	--enable-gtk-doc=yes \
 	--with-qmi=yes \
 	--without-mbim \
@@ -124,7 +124,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %attr(0755,root,root) %{_bindir}/mmcli
 %dir %{_libdir}/%{name}
 %attr(0755,root,root) %{_libdir}/%{name}/*.so*
-%{_libdir}/udev/rules.d/*
+%{_udevrulesdir}/*
 %{_datadir}/dbus-1/interfaces/*.xml
 %{systemd_dir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
@@ -148,6 +148,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/gtk-doc/html/libmm-glib/*
 
 %changelog
+* Mon Aug 26 2013 Dan Williams <dcbw@redhat.com> - 1.0.1-2.git20130723
+- Fix udev rules file paths
+- Remove 'dia' from BuildRequires
+
 * Tue Jul 23 2013 Dan Williams <dcbw@redhat.com> - 1.0.1-1.git20130723
 - Update to 1.0.1 release
 - Enable QMI support
