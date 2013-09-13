@@ -1,4 +1,4 @@
-%global snapshot .git20130723
+%global snapshot .git20130913
 %global glib2_version 2.32
 %global systemd_dir %{_prefix}/lib/systemd/system
 
@@ -6,7 +6,7 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.0.1
+Version: 1.1.0
 Release: 2%{snapshot}%{?dist}
 #
 # Source from git://anongit.freedesktop.org/ModemManager/ModemManager
@@ -26,7 +26,10 @@ BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
 BuildRequires: libxslt gtk-doc
-BuildRequires: libqmi-devel >= 1.4
+BuildRequires: libqmi-devel >= 1.6
+BuildRequires: libmbim-devel >= 1.5
+BuildRequires: gobject-introspection-devel >= 0.10.3
+BuildRequires: vala-tools vala-devel
 
 Patch0: buildsys-hates-openpty.patch
 
@@ -66,6 +69,15 @@ Requires: pkgconfig
 This package contains various headers for accessing some ModemManager functionality
 from glib applications.
 
+%package vala
+Summary: Vala bindings for ModemManager
+Group: Development/Libraries
+Requires: vala
+Requires: %{name}-glib%{?_isa} = %{version}-%{release}
+
+%description vala
+Vala bindings for ModemManager
+
 %prep
 %setup -q
 %patch0 -p1 -b .pty
@@ -79,7 +91,7 @@ intltoolize --force
 	--with-udev-base-dir=%{_prefix}/lib/udev \
 	--enable-gtk-doc=yes \
 	--with-qmi=yes \
-	--without-mbim \
+	--with-mbim=yes \
 	--disable-static \
 	--with-polkit=no \
 	--with-dist-version=%{version}-%{release}
@@ -138,6 +150,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files glib
 %{_libdir}/libmm-glib.so.*
+%{_libdir}/girepository-1.0/*.typelib
 
 %files glib-devel
 %{_libdir}/libmm-glib.so
@@ -146,8 +159,19 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_libdir}/pkgconfig/mm-glib.pc
 %dir %{_datadir}/gtk-doc/html/libmm-glib
 %{_datadir}/gtk-doc/html/libmm-glib/*
+%{_datadir}/gir-1.0/*.gir
+
+%files vala
+%{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Fri Sep 13 2013 Dan Williams <dcbw@redhat.com> - 1.1.0-2.git20130913
+- Build with MBIM support
+- Enable Vala bindings
+
+* Fri Sep  6 2013 Dan Williams <dcbw@redhat.com> - 1.1.0-1.git20130906
+- Update to latest git snapshot
+
 * Mon Aug 26 2013 Dan Williams <dcbw@redhat.com> - 1.0.1-2.git20130723
 - Fix udev rules file paths
 - Remove 'dia' from BuildRequires
