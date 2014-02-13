@@ -1,24 +1,21 @@
-%global snapshot .git20130913
+
 %global glib2_version 2.32
 %global systemd_dir %{_prefix}/lib/systemd/system
 
-%global hardened_build 1
+%global _hardened_build 1
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.1.0
-Release: 2%{snapshot}%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 #
-# Source from git://anongit.freedesktop.org/ModemManager/ModemManager
-# tarball built with:
-#    ./autogen.sh --prefix=/usr --sysconfdir=/etc --localstatedir=/var
-#    make distcheck
+# Source from http://freedesktop.org/software/ModemManager/
 #
-Source: %{name}-%{version}%{snapshot}.tar.xz
+Source: %{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
-URL: http://www.gnome.org/projects/NetworkManager/
+URL: https://wiki.gnome.org/Projects/NetworkManager
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires: glib2 >= %{glib2_version}
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -89,9 +86,10 @@ intltoolize --force
 %configure \
 	--enable-more-warnings=error \
 	--with-udev-base-dir=%{_prefix}/lib/udev \
-	--enable-gtk-doc=yes \
+	--enable-gtk-doc \
 	--with-qmi=yes \
 	--with-mbim=yes \
+	--with-newest-qmi-commands \
 	--disable-static \
 	--with-polkit=no \
 	--with-dist-version=%{version}-%{release}
@@ -141,6 +139,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{systemd_dir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
 %{_mandir}/man8/*
+%{_datadir}/locale/*/LC_MESSAGES/ModemManager.mo
 
 %files devel
 %{_includedir}/ModemManager/*.h
@@ -165,6 +164,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sat Feb  1 2014 poma <poma@gmail.com> - 1.2.0-1
+- Update to 1.2.0 release
+
 * Fri Sep 13 2013 Dan Williams <dcbw@redhat.com> - 1.1.0-2.git20130913
 - Build with MBIM support
 - Enable Vala bindings
