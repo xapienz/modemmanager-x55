@@ -6,26 +6,30 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.2.0
-Release: 3%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
-Source: %{name}-%{version}.tar.xz
+Source: %{name}-%{version}.git20140805.3dd6f931.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
 URL: https://wiki.gnome.org/Projects/NetworkManager
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires: glib2 >= %{glib2_version}
+# For mbim-proxy and qmi-proxy
+Requires: libmbim-utils
+Requires: libqmi-utils
+
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
 BuildRequires: libxslt gtk-doc
-BuildRequires: libqmi-devel >= 1.6
-BuildRequires: libmbim-devel >= 1.5
-BuildRequires: gobject-introspection-devel >= 0.10.3
+BuildRequires: libqmi-devel >= 1.10
+BuildRequires: libmbim-devel >= 1.10
+BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 
 Patch0: buildsys-hates-openpty.patch
@@ -164,6 +168,15 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Aug  5 2014 Dan Williams <dcbw@redhat.com> - 1.3.0-1
+- Update to git development snapshot
+- Add IPv6 support for many devices
+- Updated blacklist for non-modem USB devices
+- Support for more MBIM devices from various manufacturers
+- Support for more Huawei devices with network ports
+- Add new "unmanaged" GPS location mode
+- Many bug fixes for various modems
+
 * Tue Jul 22 2014 Kalev Lember <kalevlember@gmail.com> - 1.2.0-3
 - Rebuilt for gobject-introspection 1.41.4
 
