@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
@@ -168,6 +168,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Tue Aug  5 2014 Dan Williams <dcbw@redhat.com> - 1.3.0-1
 - Update to git development snapshot
 - Add IPv6 support for many devices
