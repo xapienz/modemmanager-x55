@@ -6,7 +6,7 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.4.0
+Version: 1.4.2
 Release: 1%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
@@ -168,6 +168,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Thu Jan 15 2015 Dan Williams <dcbw@redhat.com> - 1.4.2-1
+- Update to 1.4.2 release
+
 * Wed Aug 27 2014 Dan Williams <dcbw@redhat.com> - 1.4.0-1
 - Update to 1.4.0 release
 - Quiet debug messages about access technology changes
