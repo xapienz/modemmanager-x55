@@ -31,6 +31,7 @@ BuildRequires: libqmi-devel >= 1.10
 BuildRequires: libmbim-devel >= 1.10
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
+BuildRequires: dbus
 
 Patch0: buildsys-hates-openpty.patch
 
