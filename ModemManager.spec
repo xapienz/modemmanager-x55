@@ -6,7 +6,7 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.4.2
+Version: 1.4.4
 Release: 1%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
@@ -27,7 +27,7 @@ BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
 BuildRequires: libxslt gtk-doc
-BuildRequires: libqmi-devel >= 1.10
+BuildRequires: libqmi-devel >= 1.12.4
 BuildRequires: libmbim-devel >= 1.10
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
@@ -86,6 +86,7 @@ Vala bindings for ModemManager
 
 %build
 
+intltoolize --force
 autoreconf -i --force
 intltoolize --force
 %configure \
@@ -110,6 +111,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
 
+%find_lang %{name}
+
 %post
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 %systemd_post ModemManager.service
@@ -131,7 +134,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %post	glib -p /sbin/ldconfig
 %postun	glib -p /sbin/ldconfig
 
-%files
+%files -f %{name}.lang
 %doc COPYING README
 %{_sysconfdir}/dbus-1/system.d/org.freedesktop.ModemManager1.conf
 %{_datadir}/dbus-1/system-services/org.freedesktop.ModemManager1.service
@@ -144,7 +147,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{systemd_dir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
 %{_mandir}/man8/*
-%{_datadir}/locale/*/LC_MESSAGES/ModemManager.mo
 
 %files devel
 %{_includedir}/ModemManager/*.h
@@ -169,6 +171,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Wed Feb 11 2015 Lubomir Rintel <lkundrak@v3.sk> - 1.4.4-1
+- Update to 1.4.4 release
+
 * Thu Jan 15 2015 Dan Williams <dcbw@redhat.com> - 1.4.2-1
 - Update to 1.4.2 release
 
