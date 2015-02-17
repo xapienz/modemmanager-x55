@@ -95,7 +95,6 @@ intltoolize --force
 	--enable-gtk-doc \
 	--with-qmi=yes \
 	--with-mbim=yes \
-	--with-newest-qmi-commands \
 	--disable-static \
 	--with-polkit=no \
 	--with-dist-version=%{version}-%{release}
