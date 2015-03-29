@@ -6,8 +6,8 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.4.4
-Release: 2%{?dist}
+Version: 1.4.6
+Release: 1%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
@@ -34,7 +34,6 @@ BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
 
 Patch0: buildsys-hates-openpty.patch
-Patch1: 0001-iface-modem-location-don-t-print-location-info-to-sy.patch
 
 %description
 The ModemManager service manages WWAN modems and provides a consistent API for
@@ -84,7 +83,6 @@ Vala bindings for ModemManager
 %prep
 %setup -q
 %patch0 -p1 -b .pty
-%patch1 -p1 -b .dont-print-location
 
 %build
 
@@ -172,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sun Mar 29 2015 Lubomir Rintel <lkundrak@v3.sk> - 1.4.6-1
+- Update to 1.4.6 release
+
 * Mon Mar  2 2015 Dan Williams <dcbw@redhat.com> - 1.4.4-2
 - Don't print location information in logs (rh #1194492)
 
