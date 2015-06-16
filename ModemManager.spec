@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.4.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
@@ -170,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Jun 16 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.4.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Sun Mar 29 2015 Lubomir Rintel <lkundrak@v3.sk> - 1.4.6-1
 - Update to 1.4.6 release
 
