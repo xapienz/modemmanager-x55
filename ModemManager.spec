@@ -15,7 +15,7 @@ Source: http://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.
 License: GPLv2+
 Group: System Environment/Base
 
-URL: https://wiki.gnome.org/Projects/NetworkManager
+URL: http://www.freedesktop.org/wiki/Software/ModemManager/
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires: glib2 >= %{glib2_version}
 # For mbim-proxy and qmi-proxy
