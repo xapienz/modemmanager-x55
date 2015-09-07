@@ -16,7 +16,6 @@ License: GPLv2+
 Group: System Environment/Base
 
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
-BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires: glib2 >= %{glib2_version}
 # For mbim-proxy and qmi-proxy
 Requires: libmbim-utils
@@ -105,10 +104,10 @@ make %{?_smp_mflags}
 make check
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=%{buildroot}
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}/*.la
+rm -f %{buildroot}%{_libdir}/*.la
+rm -f %{buildroot}%{_libdir}/%{name}/*.la
 
 %find_lang %{name}
 
