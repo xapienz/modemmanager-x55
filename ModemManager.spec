@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.4.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
@@ -20,6 +20,10 @@ Requires: glib2 >= %{glib2_version}
 # For mbim-proxy and qmi-proxy
 Requires: libmbim-utils
 Requires: libqmi-utils
+
+Requires(post): systemd
+Requires(postun): systemd
+Requires(preun): systemd
 
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libgudev1-devel >= 143
@@ -169,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon Sep 07 2015 Lubomir Rintel <lkundrak@v3.sk> - 1.4.10-2
+- Ensure systemctl's around when we preset the service (rh #1227424)
+
 * Tue Aug 18 2015 Lubomir Rintel <lkundrak@v3.sk> - 1.4.10-1
 - Update to 1.4.10 release
 
