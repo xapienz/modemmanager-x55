@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.4.10
-Release: 3%{?dist}
+Release: 4%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
@@ -93,7 +93,7 @@ intltoolize --force
 autoreconf -i --force
 intltoolize --force
 %configure \
-	--enable-more-warnings=error \
+	--enable-more-warnings=no \
 	--with-udev-base-dir=%{_prefix}/lib/udev \
 	--enable-gtk-doc \
 	--with-qmi=yes \
@@ -173,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon Feb 29 2016 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.10-4
+- Disable -Werror (#1307284)
+
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
