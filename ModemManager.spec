@@ -6,8 +6,8 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.4.10
-Release: 4%{?dist}
+Version: 1.4.14
+Release: 1%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
@@ -93,7 +93,7 @@ intltoolize --force
 autoreconf -i --force
 intltoolize --force
 %configure \
-	--enable-more-warnings=no \
+	--enable-more-warnings=yes \
 	--with-udev-base-dir=%{_prefix}/lib/udev \
 	--enable-gtk-doc \
 	--with-qmi=yes \
@@ -173,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon Mar 21 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.4.14-1
+- Update to 1.4.14 release
+
 * Mon Feb 29 2016 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.10-4
 - Disable -Werror (#1307284)
 
