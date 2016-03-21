@@ -93,7 +93,7 @@ intltoolize --force
 autoreconf -i --force
 intltoolize --force
 %configure \
-	--enable-more-warnings=yes \
+	--enable-more-warnings=no \
 	--with-udev-base-dir=%{_prefix}/lib/udev \
 	--enable-gtk-doc \
 	--with-qmi=yes \
