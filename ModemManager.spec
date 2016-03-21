@@ -6,12 +6,12 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.4.14
-Release: 1%{?dist}
+Version: 1.6
+Release: 0.1.rc1%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
-Source: http://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.5.990.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -35,8 +35,6 @@ BuildRequires: libmbim-devel >= 1.10
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
-
-Patch0: buildsys-hates-openpty.patch
 
 %description
 The ModemManager service manages WWAN modems and provides a consistent API for
@@ -84,11 +82,9 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q
-%patch0 -p1 -b .pty
+%setup -q -n %{name}-1.5.990
 
 %build
-
 intltoolize --force
 autoreconf -i --force
 intltoolize --force
@@ -148,6 +144,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 %{systemd_dir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
+%{_datadir}/bash-completion
 %{_mandir}/man8/*
 
 %files devel
@@ -173,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon Mar 21 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6-0.1.rc1
+- Update to 1.6 release candidate
+
 * Mon Mar 21 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.4.14-1
 - Update to 1.4.14 release
 
