@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6
-Release: 0.1.rc2%{?dist}
+Release: 0.2.rc2%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
