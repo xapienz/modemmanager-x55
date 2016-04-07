@@ -36,6 +36,8 @@ BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
 
+Patch0: ModemManager-bigendian.patch
+
 %description
 The ModemManager service manages WWAN modems and provides a consistent API for
 interacting with these devices to client applications.
@@ -83,6 +85,7 @@ Vala bindings for ModemManager
 
 %prep
 %setup -q -n %{name}-1.5.991
+%patch0 -p1 -b .endian
 
 %build
 intltoolize --force
@@ -170,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Thu Apr 07 2016 Than Ngo <than@redhat.com> - 1.6-0.2.rc2
+- fix big endian issue on s390x/ppc64
+
 * Fri Mar 25 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6-0.1.rc2
 - Update to 1.6 release candidate 2
 

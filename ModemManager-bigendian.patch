@@ -1,0 +1,42 @@
+diff -up ModemManager-1.5.991/plugins/huawei/tests/test-modem-helpers-huawei.c.than ModemManager-1.5.991/plugins/huawei/tests/test-modem-helpers-huawei.c
+--- ModemManager-1.5.991/plugins/huawei/tests/test-modem-helpers-huawei.c.than	2016-04-07 08:04:47.226567436 -0400
++++ ModemManager-1.5.991/plugins/huawei/tests/test-modem-helpers-huawei.c	2016-04-07 10:45:48.832853814 -0400
+@@ -161,6 +161,22 @@ static const DhcpTest dhcp_tests[] = {
+     { NULL }
+ };
+ 
++static char * checkendian(char *ip)
++{
++#if __BYTE_ORDER == __BIG_ENDIAN
++ in_addr_t addr;
++ inet_pton(AF_INET, ip, &addr);
++ addr =
++    ((addr & 0xff000000) >> 24) |
++    ((addr & 0x00ff0000) >>  8) |
++    ((addr & 0x0000ff00) <<  8) |
++    ((addr & 0x000000ff) << 24);
++
++ inet_ntop(AF_INET, &addr, ip, INET_ADDRSTRLEN);
++#endif
++ return ip;
++}
++
+ static void
+ test_dhcp (void)
+ {
+@@ -180,11 +196,11 @@ test_dhcp (void)
+                       &error) == TRUE);
+         g_assert_no_error (error);
+ 
+-        g_assert_cmpstr (inet_ntoa (*((struct in_addr *) &addr)), ==, dhcp_tests[i].expected_addr);
++        g_assert_cmpstr (checkendian(inet_ntoa (*((struct in_addr *) &addr))), ==, dhcp_tests[i].expected_addr);
+         g_assert_cmpint (prefix, ==, dhcp_tests[i].expected_prefix);
+-        g_assert_cmpstr (inet_ntoa (*((struct in_addr *) &gateway)), ==, dhcp_tests[i].expected_gateway);
+-        g_assert_cmpstr (inet_ntoa (*((struct in_addr *) &dns1)), ==, dhcp_tests[i].expected_dns1);
+-        g_assert_cmpstr (inet_ntoa (*((struct in_addr *) &dns2)), ==, dhcp_tests[i].expected_dns2);
++        g_assert_cmpstr (checkendian(inet_ntoa (*((struct in_addr *) &gateway))), ==, dhcp_tests[i].expected_gateway);
++        g_assert_cmpstr (checkendian(inet_ntoa (*((struct in_addr *) &dns1))), ==, dhcp_tests[i].expected_dns1);
++        g_assert_cmpstr (checkendian(inet_ntoa (*((struct in_addr *) &dns2))), ==, dhcp_tests[i].expected_dns2);
+     }
+ }
+ 
