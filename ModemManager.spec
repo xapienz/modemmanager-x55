@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6
-Release: 0.2.rc2%{?dist}
+Release: 0.3.rc2%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
@@ -173,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Apr 12 2016 Than Ngo <than@redhat.com> - 1.6-0.3.rc2
+- add better fix for big endian issue on s390x/ppc64
+
 * Thu Apr 07 2016 Than Ngo <than@redhat.com> - 1.6-0.2.rc2
 - fix big endian issue on s390x/ppc64
 
