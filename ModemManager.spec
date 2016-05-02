@@ -7,11 +7,11 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6
-Release: 0.3.rc2%{?dist}
+Release: 0.1.rc3%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.5.991.tar.xz
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.5.992.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -35,8 +35,6 @@ BuildRequires: libmbim-devel >= 1.10
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
-
-Patch0: ModemManager-bigendian.patch
 
 %description
 The ModemManager service manages WWAN modems and provides a consistent API for
@@ -84,8 +82,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q -n %{name}-1.5.991
-%patch0 -p1 -b .endian
+%setup -q -n %{name}-1.5.992
 
 %build
 intltoolize --force
@@ -173,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon May 02 2016 Francesco Giudici <fgiudici@redhat.com> - 1.6-0.1.rc3
+- Update to 1.6 release candidate 3
+
 * Tue Apr 12 2016 Than Ngo <than@redhat.com> - 1.6-0.3.rc2
 - add better fix for big endian issue on s390x/ppc64
 
