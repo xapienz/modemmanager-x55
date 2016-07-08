@@ -1,6 +1,4 @@
-
 %global glib2_version 2.32
-%global systemd_dir %{_prefix}/lib/systemd/system
 
 %global _hardened_build 1
 
@@ -8,9 +6,6 @@ Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6
 Release: 0.3.rc4%{?dist}
-#
-# Source from http://freedesktop.org/software/ModemManager/
-#
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.5.993.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -142,7 +137,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %attr(0755,root,root) %{_libdir}/%{name}/*.so*
 %{_udevrulesdir}/*
 %{_datadir}/dbus-1/interfaces/*.xml
-%{systemd_dir}/ModemManager.service
+%{_unitdir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
 %{_datadir}/bash-completion
 %{_mandir}/man8/*
