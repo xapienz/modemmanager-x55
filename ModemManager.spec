@@ -7,11 +7,11 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6
-Release: 0.3.rc3%{?dist}
+Release: 0.3.rc4%{?dist}
 #
 # Source from http://freedesktop.org/software/ModemManager/
 #
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.5.992.tar.xz
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.5.993.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -30,8 +30,8 @@ BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
 BuildRequires: libxslt gtk-doc
-BuildRequires: libqmi-devel >= 1.12.4
-BuildRequires: libmbim-devel >= 1.10
+BuildRequires: libqmi-devel >= 1.16.0
+BuildRequires: libmbim-devel >= 1.14.0
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
@@ -82,7 +82,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q -n %{name}-1.5.992
+%setup -q -n %{name}-1.5.993
 
 %build
 intltoolize --force
@@ -170,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Fri Jul 08 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6-0.1.rc4
+- Update to 1.6 release candidate 4
+
 * Mon May 02 2016 Francesco Giudici <fgiudici@redhat.com> - 1.6-0.3.rc3
 - Update to 1.6 release candidate 3
 
