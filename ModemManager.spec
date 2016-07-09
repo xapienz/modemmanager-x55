@@ -5,7 +5,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6
-Release: 0.3.rc4%{?dist}
+Release: 0.4.rc4%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.5.993.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -30,6 +30,7 @@ BuildRequires: libmbim-devel >= 1.14.0
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
+BuildRequires: sysstemd-devel
 
 %description
 The ModemManager service manages WWAN modems and provides a consistent API for
@@ -84,6 +85,7 @@ intltoolize --force
 autoreconf -i --force
 intltoolize --force
 %configure \
+	--with-suspend-resume=systemd \
 	--enable-more-warnings=no \
 	--with-udev-base-dir=%{_prefix}/lib/udev \
 	--enable-gtk-doc \
@@ -165,7 +167,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
-* Fri Jul 08 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6-0.1.rc4
+* Fri Jul 08 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6-0.4.rc4
+- Enable suspend/resume support (rh#1341303)
+
+* Fri Jul 08 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6-0.3.rc4
 - Update to 1.6 release candidate 4
 
 * Mon May 02 2016 Francesco Giudici <fgiudici@redhat.com> - 1.6-0.3.rc3
