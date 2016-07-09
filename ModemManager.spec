@@ -30,7 +30,7 @@ BuildRequires: libmbim-devel >= 1.14.0
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
-BuildRequires: sysstemd-devel
+BuildRequires: systemd-devel
 
 %description
 The ModemManager service manages WWAN modems and provides a consistent API for
