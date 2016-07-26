@@ -4,9 +4,9 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.6
-Release: 0.4.rc4%{?dist}
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.5.993.tar.xz
+Version: 1.6.0
+Release: 1%{?dist}
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -78,7 +78,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q -n %{name}-1.5.993
+%setup -q -n %{name}-%{version}
 
 %build
 intltoolize --force
@@ -167,6 +167,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Jul 26 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6.0-1
+- Update to 1.6.0 release
+
 * Fri Jul 08 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6-0.4.rc4
 - Enable suspend/resume support (rh#1341303)
 
