@@ -15,6 +15,7 @@ Requires: glib2 >= %{glib2_version}
 # For mbim-proxy and qmi-proxy
 Requires: libmbim-utils
 Requires: libqmi-utils
+Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 
 Requires(post): systemd
 Requires(postun): systemd
