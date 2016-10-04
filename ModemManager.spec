@@ -1,4 +1,4 @@
-%global glib2_version 2.322
+%global glib2_version 2.32
 
 %global _hardened_build 1
 
