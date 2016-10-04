@@ -1,10 +1,10 @@
-%global glib2_version 2.32
+%global glib2_version 2.322
 
 %global _hardened_build 1
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.6.0
+Version: 1.6.2
 Release: 1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
@@ -167,6 +167,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Oct 04 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6.2-1
+- Update to 1.6.2 release
+
 * Tue Jul 26 2016 Lubomir Rintel <lkundrak@v3.sk> - 1.6.0-1
 - Update to 1.6.0 release
 
