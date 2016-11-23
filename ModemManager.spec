@@ -139,7 +139,6 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %dir %{_libdir}/%{name}
 %attr(0755,root,root) %{_libdir}/%{name}/*.so*
 %{_udevrulesdir}/*
-%{_datadir}/dbus-1/interfaces/*.xml
 %{_unitdir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
 %{_datadir}/bash-completion
@@ -150,6 +149,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %dir %{_datadir}/gtk-doc/html/%{name}
 %{_datadir}/gtk-doc/html/%{name}/*
 %{_libdir}/pkgconfig/%{name}.pc
+%{_datadir}/dbus-1/interfaces/*.xml
 
 %files glib
 %{_libdir}/libmm-glib.so.*
