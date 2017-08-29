@@ -4,8 +4,8 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.6.4
-Release: 4%{?dist}
+Version: 1.6.8
+Release: 1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -32,6 +32,8 @@ BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
 BuildRequires: systemd-devel
+
+%global __provides_exclude ^libmm-plugin-
 
 %description
 The ModemManager service manages WWAN modems and provides a consistent API for
@@ -79,7 +81,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
 
 %build
 intltoolize --force
@@ -168,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Aug 29 2017 Lubomir Rintel <lkundrak@v3.sk> - 1.6.8-1
+- Update to 1.6.8 release
+
 * Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
