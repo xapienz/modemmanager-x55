@@ -4,7 +4,7 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.6.8
+Version: 1.6.10
 Release: 1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
@@ -170,6 +170,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sun Oct 22 2017 Lubomir Rintel <lkundrak@v3.sk> - 1.6.10-1
+- Update to 1.6.10 release
+
 * Tue Aug 29 2017 Lubomir Rintel <lkundrak@v3.sk> - 1.6.8-1
 - Update to 1.6.8 release
 
