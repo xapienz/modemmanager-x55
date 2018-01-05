@@ -5,7 +5,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -112,22 +112,13 @@ rm -f %{buildroot}%{_libdir}/%{name}/*.la
 %find_lang %{name}
 
 %post
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 %systemd_post ModemManager.service
 
 %preun
 %systemd_preun ModemManager.service
 
 %postun
-/sbin/ldconfig
-if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
 %systemd_postun
-
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %post	glib -p /sbin/ldconfig
 %postun	glib -p /sbin/ldconfig
@@ -170,6 +161,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Fri Jan 05 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.6.10-2
+- Remove obsolete scriptlets
+
 * Sun Oct 22 2017 Lubomir Rintel <lkundrak@v3.sk> - 1.6.10-1
 - Update to 1.6.10 release
 
