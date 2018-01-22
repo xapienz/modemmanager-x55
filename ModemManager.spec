@@ -1,4 +1,6 @@
-%global glib2_version 2.32
+%global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
+%global qmi_version %(pkg-config --modversion qmi-glib 2>/dev/null || echo bad)
+%global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
 
 %global _hardened_build 1
 
@@ -12,6 +14,8 @@ Group: System Environment/Base
 
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
 Requires: glib2 >= %{glib2_version}
+Requires: libqmi >= %{qmi_version}
+Requires: libmbim >= %{mbim_version}
 # For mbim-proxy and qmi-proxy
 Requires: libmbim-utils
 Requires: libqmi-utils
@@ -21,7 +25,7 @@ Requires(post): systemd
 Requires(postun): systemd
 Requires(preun): systemd
 
-BuildRequires: glib2-devel >= %{glib2_version}
+BuildRequires: glib2-devel >= 2.32
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf intltool libtool
 BuildRequires: intltool
@@ -177,6 +181,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %changelog
 * Mon Jan 22 2018 Lubomir Rintel <lkundrak@v3.sk> - 1.6.10-3
+- Require libmbim and libqmi we were built with (rh #1534945)
 - Restore the scriptlets where they are needed
 
 * Fri Jan 05 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.6.10-2
