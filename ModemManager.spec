@@ -5,7 +5,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -112,22 +112,28 @@ rm -f %{buildroot}%{_libdir}/%{name}/*.la
 %find_lang %{name}
 
 %post
+%if 0%{?rhel} && 0%{?rhel} <= 7
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+%endif
 %systemd_post ModemManager.service
 
 %preun
 %systemd_preun ModemManager.service
 
 %postun
+%if 0%{?rhel} && 0%{?rhel} <= 7
 /sbin/ldconfig
 if [ $1 -eq 0 ] ; then
     touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
+%endif
 %systemd_postun
 
+%if 0%{?rhel} && 0%{?rhel} <= 7
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%endif
 
 %post	glib -p /sbin/ldconfig
 %postun	glib -p /sbin/ldconfig
@@ -170,6 +176,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon Jan 22 2018 Lubomir Rintel <lkundrak@v3.sk> - 1.6.10-3
+- Restore the scriptlets where they are needed
+
 * Fri Jan 05 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.6.10-2
 - Remove obsolete scriptlets
 
