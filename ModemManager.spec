@@ -112,13 +112,22 @@ rm -f %{buildroot}%{_libdir}/%{name}/*.la
 %find_lang %{name}
 
 %post
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 %systemd_post ModemManager.service
 
 %preun
 %systemd_preun ModemManager.service
 
 %postun
+/sbin/ldconfig
+if [ $1 -eq 0 ] ; then
+    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
 %systemd_postun
+
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %post	glib -p /sbin/ldconfig
 %postun	glib -p /sbin/ldconfig
