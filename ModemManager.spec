@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.6.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -126,7 +126,6 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
 %if 0%{?rhel} && 0%{?rhel} <= 7
-/sbin/ldconfig
 if [ $1 -eq 0 ] ; then
     touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
@@ -139,8 +138,7 @@ fi
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
-%post	glib -p /sbin/ldconfig
-%postun	glib -p /sbin/ldconfig
+%ldconfig_scriptlets glib
 
 %files -f %{name}.lang
 %doc COPYING README
@@ -180,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sat Feb 03 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 1.6.12-2
+- Switch to %%ldconfig_scriptlets
+
 * Mon Jan 22 2018 Lubomir Rintel <lkundrak@v3.sk> - 1.6.12-1
 - Update to 1.6.12 release
 - Require libmbim and libqmi we were built with (rh #1534945)
