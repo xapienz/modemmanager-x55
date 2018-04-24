@@ -6,9 +6,9 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.6.12
-Release: 3%{?dist}
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
+Version: 1.8.0
+Release: 0.rc2.1%{?dist}
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.7.991.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -27,15 +27,15 @@ Requires(preun): systemd
 
 BuildRequires: glib2-devel >= 2.32
 BuildRequires: libgudev1-devel >= 143
-BuildRequires: automake autoconf intltool libtool
-BuildRequires: intltool
+BuildRequires: automake autoconf libtool
 BuildRequires: libxslt gtk-doc
-BuildRequires: libqmi-devel >= 1.16.0
-BuildRequires: libmbim-devel >= 1.14.0
+BuildRequires: libqmi-devel >= 1.20.0
+BuildRequires: libmbim-devel >= 1.16.0
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
 BuildRequires: systemd-devel
+BuildRequires: gettext-devel >= 0.19.8
 
 %global __provides_exclude ^libmm-plugin-
 
@@ -85,13 +85,14 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q
+%setup -q -n %{name}-1.7.991
 
 %build
-intltoolize --force
+# Regenerate configure, because the one that is shipped
+# doesn't seem to obey --disable-rpath for reasons unknown.
 autoreconf -i --force
-intltoolize --force
 %configure \
+	--disable-rpath \
 	--with-suspend-resume=systemd \
 	--enable-more-warnings=no \
 	--with-udev-base-dir=%{_prefix}/lib/udev \
@@ -178,6 +179,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Apr 24 2018 Lubomir Rintel <lkundrak@v3.sk> - 1.8.0-0.rc2.1
+- Update to 1.8 release candidate 2
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
