@@ -93,7 +93,8 @@ Vala bindings for ModemManager
 autoreconf -i --force
 %configure \
 	--disable-rpath \
-	--with-suspend-resume=systemd \
+	--with-systemd-suspend-resume \
+	--with-systemd-journal \
 	--enable-more-warnings=no \
 	--with-udev-base-dir=%{_prefix}/lib/udev \
 	--enable-gtk-doc \
