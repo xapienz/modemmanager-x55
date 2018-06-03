@@ -7,8 +7,8 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.8.0
-Release: 0.rc2.1%{?dist}
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.7.991.tar.xz
+Release: 1%{?dist}
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -25,7 +25,7 @@ Requires(post): systemd
 Requires(postun): systemd
 Requires(preun): systemd
 
-BuildRequires: glib2-devel >= 2.32
+BuildRequires: glib2-devel >= 2.36
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf libtool
 BuildRequires: libxslt gtk-doc
@@ -34,7 +34,7 @@ BuildRequires: libmbim-devel >= 1.16.0
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
-BuildRequires: systemd-devel
+BuildRequires: systemd-devel >= 209
 BuildRequires: gettext-devel >= 0.19.8
 
 %global __provides_exclude ^libmm-plugin-
@@ -85,7 +85,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q -n %{name}-1.7.991
+%setup -q
 
 %build
 # Regenerate configure, because the one that is shipped
@@ -180,6 +180,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sun Jun 03 2018 Lubomir Rintel <lkundrak@v3.sk> - 1.8.0-1
+- Update to 1.8.0 release
+
 * Tue Apr 24 2018 Lubomir Rintel <lkundrak@v3.sk> - 1.8.0-0.rc2.1
 - Update to 1.8 release candidate 2
 
