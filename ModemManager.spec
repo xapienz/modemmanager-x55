@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -180,6 +180,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Sun Jun 03 2018 Lubomir Rintel <lkundrak@v3.sk> - 1.8.0-1
 - Update to 1.8.0 release
 
