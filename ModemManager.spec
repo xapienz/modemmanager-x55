@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -93,6 +93,7 @@ Vala bindings for ModemManager
 autoreconf -i --force
 %configure \
 	--disable-rpath \
+	--disable-silent-rules \
 	--with-systemd-suspend-resume \
 	--with-systemd-journal \
 	--enable-more-warnings=no \
@@ -104,13 +105,13 @@ autoreconf -i --force
 	--with-polkit=no \
 	--with-dist-version=%{version}-%{release}
 
-make %{?_smp_mflags}
+%make_build
 
 %check
 make check
 
 %install
-make install DESTDIR=%{buildroot}
+%make_install
 
 rm -f %{buildroot}%{_libdir}/*.la
 rm -f %{buildroot}%{_libdir}/%{name}/*.la
@@ -157,7 +158,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_mandir}/man8/*
 
 %files devel
-%{_includedir}/ModemManager/*.h
+%{_includedir}/ModemManager/
 %dir %{_datadir}/gtk-doc/html/%{name}
 %{_datadir}/gtk-doc/html/%{name}/*
 %{_libdir}/pkgconfig/%{name}.pc
@@ -180,6 +181,11 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sun Jul 29 2018 Rex Dieter <rdieter@fedoraproject.org> - 1.8.0-3
+- -devel: own %%_includedir/ModemManager/
+- %%build: --disable-silent-rules
+- use %%make_build %%make_install
+
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
