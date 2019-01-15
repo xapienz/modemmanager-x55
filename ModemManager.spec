@@ -6,8 +6,8 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.8.0
-Release: 4%{?dist}
+Version: 1.8.2
+Release: 1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 Group: System Environment/Base
@@ -181,6 +181,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Jan 15 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.8.2-1
+- Update to 1.8.2 release
+
 * Tue Jul 31 2018 Florian Weimer <fweimer@redhat.com> - 1.8.0-4
 - Rebuild with fixed binutils
 
