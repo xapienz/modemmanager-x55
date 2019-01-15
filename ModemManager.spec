@@ -155,6 +155,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_unitdir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
 %{_datadir}/bash-completion
+%{_mandir}/man1/*
 %{_mandir}/man8/*
 
 %files devel
