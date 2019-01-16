@@ -6,9 +6,9 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.8.2
-Release: 1%{?dist}
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
+Version: 1.10.0
+Release: 0.1.rc1%{?dist}
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.9.990.tar.xz
 License: GPLv2+
 Group: System Environment/Base
 
@@ -29,8 +29,8 @@ BuildRequires: glib2-devel >= 2.36
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf libtool
 BuildRequires: libxslt gtk-doc
-BuildRequires: libqmi-devel >= 1.20.0
-BuildRequires: libmbim-devel >= 1.16.0
+BuildRequires: libqmi-devel >= 1.22.0
+BuildRequires: libmbim-devel >= 1.18.0
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
@@ -85,7 +85,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q
+%setup -q -n %{name}-1.9.990
 
 %build
 # Regenerate configure, because the one that is shipped
@@ -182,6 +182,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Jan 15 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.10.0-0.1.rc1
+- Update to 1.10 release candidate 1
+
 * Tue Jan 15 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.8.2-1
 - Update to 1.8.2 release
 
