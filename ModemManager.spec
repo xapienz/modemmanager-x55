@@ -36,6 +36,7 @@ BuildRequires: vala-tools vala-devel
 BuildRequires: dbus
 BuildRequires: systemd-devel >= 209
 BuildRequires: gettext-devel >= 0.19.8
+BuildRequires: dbus-daemon
 
 %global __provides_exclude ^libmm-plugin-
 
