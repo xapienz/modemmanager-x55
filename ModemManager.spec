@@ -10,7 +10,6 @@ Version: 1.10.0
 Release: 0.1.rc1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.9.990.tar.xz
 License: GPLv2+
-Group: System Environment/Base
 
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
 Requires: glib2 >= %{glib2_version}
@@ -46,7 +45,6 @@ interacting with these devices to client applications.
 
 %package devel
 Summary: Libraries and headers for adding ModemManager support to applications
-Group: Development/Libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 
@@ -56,7 +54,6 @@ from applications.
 
 %package glib
 Summary: Libraries for adding ModemManager support to applications that use glib.
-Group: Development/Libraries
 Requires: glib2 >= %{glib2_version}
 
 %description glib
@@ -65,7 +62,6 @@ functionality from applications that use glib.
 
 %package glib-devel
 Summary: Libraries and headers for adding ModemManager support to applications that use glib.
-Group: Development/Libraries
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 Requires: %{name}-glib%{?_isa} = %{version}-%{release}
@@ -78,7 +74,6 @@ from glib applications.
 
 %package vala
 Summary: Vala bindings for ModemManager
-Group: Development/Libraries
 Requires: vala
 Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 
