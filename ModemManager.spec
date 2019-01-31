@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.10.0
-Release: 0.1.rc1%{?dist}
+Release: 0.2.rc1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.9.990.tar.xz
 License: GPLv2+
 
@@ -178,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-0.2.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
 * Tue Jan 15 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.10.0-0.1.rc1
 - Update to 1.10 release candidate 1
 
