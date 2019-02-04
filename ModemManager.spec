@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.10.0
-Release: 0.2.rc1%{?dist}
+Release: 0.3.rc1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.9.990.tar.xz
 License: GPLv2+
 
@@ -31,7 +31,7 @@ BuildRequires: libxslt gtk-doc
 BuildRequires: libqmi-devel >= 1.22.0
 BuildRequires: libmbim-devel >= 1.18.0
 BuildRequires: gobject-introspection-devel >= 1.38
-BuildRequires: vala-tools vala-devel
+BuildRequires: vala
 BuildRequires: dbus
 BuildRequires: systemd-devel >= 209
 BuildRequires: gettext-devel >= 0.19.8
@@ -178,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon Feb 04 2019 Kalev Lember <klember@redhat.com> - 1.10.0-0.3.rc1
+- Update BRs for vala packaging changes
+
 * Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-0.2.rc1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
