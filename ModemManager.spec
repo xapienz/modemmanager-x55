@@ -7,8 +7,8 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.10.0
-Release: 0.3.rc1%{?dist}
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-1.9.990.tar.xz
+Release: 1%{?dist}
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 License: GPLv2+
 
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -81,7 +81,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q -n %{name}-1.9.990
+%setup -q
 
 %build
 # Regenerate configure, because the one that is shipped
@@ -178,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Wed Mar 27 2019 Richard Hughes <richard@hughsie.com> 1.10.0-1
+- Update to the release tarball.
+
 * Mon Feb 04 2019 Kalev Lember <klember@redhat.com> - 1.10.0-0.3.rc1
 - Update BRs for vala packaging changes
 
