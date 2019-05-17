@@ -125,6 +125,7 @@ touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 %postun
 %if 0%{?rhel} && 0%{?rhel} <= 7
+/sbin/ldconfig
 if [ $1 -eq 0 ] ; then
     touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
@@ -137,7 +138,8 @@ fi
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
-%ldconfig_scriptlets glib
+%post	glib -p /sbin/ldconfig
+%postun	glib -p /sbin/ldconfig
 
 %files -f %{name}.lang
 %doc COPYING README
