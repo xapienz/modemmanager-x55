@@ -12,13 +12,16 @@ Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar
 License: GPLv2+
 
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
-Requires: glib2 >= %{glib2_version}
-Requires: libqmi >= %{qmi_version}
-Requires: libmbim >= %{mbim_version}
 # For mbim-proxy and qmi-proxy
 Requires: libmbim-utils
 Requires: libqmi-utils
 Requires: %{name}-glib%{?_isa} = %{version}-%{release}
+
+# Don't allow older versions of these than what we built against,
+# because they add new API w/o versioning it or bumping the SONAME
+Conflicts: glib2%{?_isa} < %{glib2_version}
+Conflicts: libqmi%{?_isa} < %{qmi_version}
+Conflicts: libmbim%{?_isa} < %{mbim_version}
 
 Requires(post): systemd
 Requires(postun): systemd
