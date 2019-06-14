@@ -6,9 +6,10 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.10.0
+Version: 1.10.2
 Release: 1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
+Patch0: https://gitlab.freedesktop.org/mobile-broadband/ModemManager/commit/fd1a26fc36df.patch#/0001-plugin-ignore-unwanted-net-ports.patch
 License: GPLv2+
 
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -31,7 +32,7 @@ BuildRequires: glib2-devel >= 2.36
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf libtool
 BuildRequires: libxslt gtk-doc
-BuildRequires: libqmi-devel >= 1.22.0
+BuildRequires: libqmi-devel >= 1.22.4
 BuildRequires: libmbim-devel >= 1.18.0
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: vala
@@ -85,6 +86,7 @@ Vala bindings for ModemManager
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 # Regenerate configure, because the one that is shipped
@@ -156,6 +158,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_unitdir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
 %{_datadir}/bash-completion
+%{_datadir}/ModemManager
 %{_mandir}/man1/*
 %{_mandir}/man8/*
 
@@ -183,6 +186,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Fri Jun 14 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.10.2-1
+- Update to 1.10.2 release
+- Don't grab cdc_ether devices on Sierra QMI modems
+
 * Wed Mar 27 2019 Richard Hughes <richard@hughsie.com> 1.10.0-1
 - Update to the release tarball.
 
