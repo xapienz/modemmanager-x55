@@ -136,7 +136,7 @@ if [ $1 -eq 0 ] ; then
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
 %endif
-%systemd_postun
+%systemd_postun ModemManager.service
 
 %if 0%{?rhel} && 0%{?rhel} <= 7
 %posttrans
