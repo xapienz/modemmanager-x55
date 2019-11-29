@@ -6,8 +6,8 @@
 
 Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.10.6
-Release: 2%{?dist}
+Version: 1.10.8
+Release: 1%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 Patch0: https://gitlab.freedesktop.org/mobile-broadband/ModemManager/commit/fd1a26fc36df.patch#/0001-plugin-ignore-unwanted-net-ports.patch
 License: GPLv2+
@@ -186,6 +186,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Fri Nov 29 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.10.8-1
+- Update to 1.10.8 release
+
 * Mon Sep 23 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.10.6-2
 - Don't grab cdc_ether devices on Sierra QMI modems
 
