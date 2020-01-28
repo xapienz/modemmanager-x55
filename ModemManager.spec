@@ -7,7 +7,7 @@
 Summary: Mobile broadband modem management service
 Name: ModemManager
 Version: 1.10.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
 Patch0: https://gitlab.freedesktop.org/mobile-broadband/ModemManager/commit/fd1a26fc36df.patch#/0001-plugin-ignore-unwanted-net-ports.patch
 License: GPLv2+
@@ -186,6 +186,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Fri Nov 29 2019 Lubomir Rintel <lkundrak@v3.sk> - 1.10.8-1
 - Update to 1.10.8 release
 
