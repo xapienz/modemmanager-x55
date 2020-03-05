@@ -4,15 +4,14 @@
 
 %global _hardened_build 1
 
-Summary: Mobile broadband modem management service
 Name: ModemManager
-Version: 1.10.8
-Release: 2%{?dist}
-Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
-Patch0: https://gitlab.freedesktop.org/mobile-broadband/ModemManager/commit/fd1a26fc36df.patch#/0001-plugin-ignore-unwanted-net-ports.patch
+Version: 1.12.6
+Release: 1%{?dist}
+Summary: Mobile broadband modem management service
 License: GPLv2+
-
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
+Source: https://www.freedesktop.org/software/ModemManager/%{name}-%{version}.tar.xz
+
 # For mbim-proxy and qmi-proxy
 Requires: libmbim-utils
 Requires: libqmi-utils
@@ -85,8 +84,7 @@ Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Vala bindings for ModemManager
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -p1
 
 %build
 # Regenerate configure, because the one that is shipped
@@ -114,8 +112,7 @@ make check
 %install
 %make_install
 
-rm -f %{buildroot}%{_libdir}/*.la
-rm -f %{buildroot}%{_libdir}/%{name}/*.la
+find %{buildroot} -type f -name "*.la" -delete
 
 %find_lang %{name}
 
@@ -147,7 +144,8 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %postun	glib -p /sbin/ldconfig
 
 %files -f %{name}.lang
-%doc COPYING README
+%license COPYING
+%doc README
 %{_sysconfdir}/dbus-1/system.d/org.freedesktop.ModemManager1.conf
 %{_datadir}/dbus-1/system-services/org.freedesktop.ModemManager1.service
 %attr(0755,root,root) %{_sbindir}/ModemManager
@@ -170,6 +168,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/dbus-1/interfaces/*.xml
 
 %files glib
+%license COPYING
 %{_libdir}/libmm-glib.so.*
 %{_libdir}/girepository-1.0/*.typelib
 
@@ -186,6 +185,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Thu Mar  5 2020 Peter Robinson <pbrobinson@fedoraproject.org> 1.12.6-1
+- Update to 1.12.6 release
+
 * Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
