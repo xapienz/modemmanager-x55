@@ -29,7 +29,7 @@ Requires(preun): systemd
 
 BuildRequires: glib2-devel >= 2.36
 BuildRequires: libgudev1-devel >= 143
-BuildRequires: automake autoconf libtool
+BuildRequires: automake autoconf libtool autoconf-archive
 BuildRequires: libxslt gtk-doc
 BuildRequires: libqmi-devel >= 1.26.0
 BuildRequires: libmbim-devel >= 1.24.0
