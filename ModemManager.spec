@@ -185,7 +185,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
-* Tue Nov  3 18:10:27 GMT 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.6-1
+* Tue Nov  3 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.6-1
 - Update to 1.14.6
 
 * Thu Aug 20 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.2-1
