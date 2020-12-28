@@ -5,7 +5,7 @@
 %global _hardened_build 1
 
 Name: ModemManager
-Version: 1.14.6
+Version: 1.14.8
 Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
@@ -185,6 +185,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon Dec 28 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.8-1
+- Update to 1.14.8
+
 * Tue Nov  3 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.6-1
 - Update to 1.14.6
 
