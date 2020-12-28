@@ -6,7 +6,7 @@
 
 Name: ModemManager
 Version: 1.14.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -30,7 +30,7 @@ Requires(preun): systemd
 BuildRequires: glib2-devel >= 2.36
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf libtool autoconf-archive
-BuildRequires: libxslt gtk-doc
+BuildRequires: gtk-doc
 BuildRequires: libqmi-devel >= 1.26.0
 BuildRequires: libmbim-devel >= 1.24.0
 BuildRequires: gobject-introspection-devel >= 1.38
@@ -185,6 +185,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Mon Dec 28 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.8-2
+- Drop unneeded libxslt dependency
+
 * Mon Dec 28 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.8-1
 - Update to 1.14.8
 
