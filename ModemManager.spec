@@ -27,6 +27,7 @@ Requires(post): systemd
 Requires(postun): systemd
 Requires(preun): systemd
 
+BuildRequires: make
 BuildRequires: glib2-devel >= 2.36
 BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf libtool autoconf-archive
