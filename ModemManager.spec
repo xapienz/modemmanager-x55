@@ -2,11 +2,9 @@
 %global qmi_version %(pkg-config --modversion qmi-glib 2>/dev/null || echo bad)
 %global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
 
-%global _hardened_build 1
-
 Name: ModemManager
-Version: 1.14.8
-Release: 2%{?dist}
+Version: 1.14.10
+Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -27,19 +25,19 @@ Requires(post): systemd
 Requires(postun): systemd
 Requires(preun): systemd
 
-BuildRequires: make
-BuildRequires: glib2-devel >= 2.36
-BuildRequires: libgudev1-devel >= 143
 BuildRequires: automake autoconf libtool autoconf-archive
-BuildRequires: gtk-doc
-BuildRequires: libqmi-devel >= 1.26.0
-BuildRequires: libmbim-devel >= 1.24.0
-BuildRequires: gobject-introspection-devel >= 1.38
-BuildRequires: vala
 BuildRequires: dbus
-BuildRequires: systemd-devel >= 209
+BuildRequires: dbus-daemon
 BuildRequires: gettext-devel >= 0.19.8
-BuildRequires: /usr/bin/dbus-daemon
+BuildRequires: glib2-devel >= 2.36
+BuildRequires: gobject-introspection-devel >= 1.38
+BuildRequires: gtk-doc
+BuildRequires: libgudev1-devel >= 143
+BuildRequires: libmbim-devel >= 1.24.0
+BuildRequires: libqmi-devel >= 1.26.0
+BuildRequires: make
+BuildRequires: systemd-devel >= 209
+BuildRequires: vala
 
 %global __provides_exclude ^libmm-plugin-
 
@@ -90,7 +88,7 @@ Vala bindings for ModemManager
 %build
 # Regenerate configure, because the one that is shipped
 # doesn't seem to obey --disable-rpath for reasons unknown.
-autoreconf -i --force
+autoreconf -vif
 %configure \
 	--disable-rpath \
 	--disable-silent-rules \
@@ -117,32 +115,16 @@ find %{buildroot} -type f -name "*.la" -delete
 
 %find_lang %{name}
 
+%ldconfig_scriptlets glib
+
 %post
-%if 0%{?rhel} && 0%{?rhel} <= 7
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
 %systemd_post ModemManager.service
 
 %preun
 %systemd_preun ModemManager.service
 
 %postun
-%if 0%{?rhel} && 0%{?rhel} <= 7
-/sbin/ldconfig
-if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-%endif
 %systemd_postun ModemManager.service
-
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
-
-%post	glib -p /sbin/ldconfig
-%postun	glib -p /sbin/ldconfig
 
 %files -f %{name}.lang
 %license COPYING
@@ -186,6 +168,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sat Jan 16 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.10-1
+- Update to 1.14.10
+- Spec clean up
+
 * Mon Dec 28 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 1.14.8-2
 - Drop unneeded libxslt dependency
 
