@@ -3,8 +3,8 @@
 %global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
-Version: 1.14.10
-Release: 2%{?dist}
+Version: 1.16.4
+Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -99,6 +99,9 @@ autoreconf -vif
 	--enable-gtk-doc \
 	--with-qmi=yes \
 	--with-mbim=yes \
+%ifarch aarch64
+	--enable-plugin-qcom-soc \
+%endif
 	--disable-static \
 	--with-polkit=no \
 	--with-dist-version=%{version}-%{release}
@@ -168,6 +171,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Fri Apr 30 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.16.4-1
+- Update to 1.16.4
+
 * Mon Jan 25 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
