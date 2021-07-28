@@ -4,7 +4,7 @@
 
 Name: ModemManager
 Version: 1.16.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -38,6 +38,7 @@ BuildRequires: libqmi-devel >= 1.26.0
 BuildRequires: make
 BuildRequires: systemd-devel >= 209
 BuildRequires: vala
+BuildRequires: polkit-devel
 
 %global __provides_exclude ^libmm-plugin-
 
@@ -103,7 +104,7 @@ autoreconf -vif
 	--enable-plugin-qcom-soc \
 %endif
 	--disable-static \
-	--with-polkit=no \
+	--with-polkit=permissive \
 	--with-dist-version=%{version}-%{release}
 
 %make_build
@@ -139,6 +140,7 @@ find %{buildroot} -type f -name "*.la" -delete
 %dir %{_libdir}/%{name}
 %attr(0755,root,root) %{_libdir}/%{name}/*.so*
 %{_udevrulesdir}/*
+%{_datadir}/polkit-1/actions/*.policy
 %{_unitdir}/ModemManager.service
 %{_datadir}/icons/hicolor/22x22/apps/*.png
 %{_datadir}/bash-completion
@@ -171,6 +173,10 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Thu Jul 29 2021 Bastien Nocera <bnocera@redhat.com> - 1.16.8-3
++ ModemManager-1.16.8-3
+- Add polkit support as used upstream
+
 * Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
