@@ -4,7 +4,7 @@
 
 Name: ModemManager
 Version: 1.16.8
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -173,6 +173,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Wed Aug 04 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.16.8-4
+- Rebuild for new libmbim/libqmi
+
 * Thu Jul 29 2021 Bastien Nocera <bnocera@redhat.com> - 1.16.8-3
 + ModemManager-1.16.8-3
 - Add polkit support as used upstream
