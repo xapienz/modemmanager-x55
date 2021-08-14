@@ -3,8 +3,8 @@
 %global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
-Version: 1.16.8
-Release: 4%{?dist}
+Version: 1.17.900
+Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -29,12 +29,13 @@ BuildRequires: automake autoconf libtool autoconf-archive
 BuildRequires: dbus
 BuildRequires: dbus-daemon
 BuildRequires: gettext-devel >= 0.19.8
-BuildRequires: glib2-devel >= 2.36
+BuildRequires: glib2-devel >= 2.56
 BuildRequires: gobject-introspection-devel >= 1.38
 BuildRequires: gtk-doc
-BuildRequires: libgudev1-devel >= 143
-BuildRequires: libmbim-devel >= 1.24.0
-BuildRequires: libqmi-devel >= 1.26.0
+BuildRequires: libgudev1-devel >= 232
+BuildRequires: libmbim-devel >= 1.26.0
+BuildRequires: libqmi-devel >= 1.30.0
+BuildRequires: libqrtr-glib-devel >= 1.0.0
 BuildRequires: make
 BuildRequires: systemd-devel >= 209
 BuildRequires: vala
@@ -173,6 +174,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sat Aug 14 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.17.900-1
+- Update to 1.18.0 RC1
+
 * Wed Aug 04 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.16.8-4
 - Rebuild for new libmbim/libqmi
 
