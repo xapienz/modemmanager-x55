@@ -4,7 +4,7 @@
 
 Name: ModemManager
 Version: 1.18.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -24,6 +24,8 @@ Conflicts: libmbim%{?_isa} < %{mbim_version}
 Requires(post): systemd
 Requires(postun): systemd
 Requires(preun): systemd
+
+Requires: polkit
 
 BuildRequires: automake autoconf libtool autoconf-archive
 BuildRequires: dbus
@@ -174,6 +176,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Fri Aug 20 2021 Thomas Haller <thaller@redhat.com> - 1.18.0-2
+- depend ModemManager on polkit package
+
 * Sun Sep 12 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.18.0-1
 - Update to 1.18.0
 
