@@ -3,7 +3,7 @@
 %global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
-Version: 1.17.900
+Version: 1.18.0
 Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
@@ -174,6 +174,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sun Sep 12 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.18.0-1
+- Update to 1.18.0
+
 * Sat Aug 14 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.17.900-1
 - Update to 1.18.0 RC1
 
