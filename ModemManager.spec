@@ -3,8 +3,8 @@
 %global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
-Version: 1.18.0
-Release: 2%{?dist}
+Version: 1.18.2
+Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -176,6 +176,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sun Sep 19 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 1.18.2-1
+- update to 1.18.2
+
 * Fri Aug 20 2021 Thomas Haller <thaller@redhat.com> - 1.18.0-2
 - depend ModemManager on polkit package
 
