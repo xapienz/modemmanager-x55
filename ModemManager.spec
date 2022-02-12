@@ -3,8 +3,8 @@
 %global mbim_version %(pkg-config --modversion mbim-glib 2>/dev/null || echo bad)
 
 Name: ModemManager
-Version: 1.18.2
-Release: 2%{?dist}
+Version: 1.18.6
+Release: 1%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -176,6 +176,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Sat Feb 12 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 1.18.6-1
+- Update to 1.18.6
+
 * Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
