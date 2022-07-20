@@ -4,7 +4,7 @@
 
 Name: ModemManager
 Version: 1.18.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Mobile broadband modem management service
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/ModemManager/
@@ -176,6 +176,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_datadir}/vala/vapi/libmm-glib.*
 
 %changelog
+* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
 * Sat May 14 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 1.18.8-1
 - Update to 1.18.8
 
